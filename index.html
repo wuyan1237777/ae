@@ -1,193 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AEFFX — AE 预设 · 模板 · 工程文件</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AEFFX</title>
 <style>
-  :root{
-    --bg:#0b0b0c; --panel:#141416; --panel2:#1b1b1e;
-    --line:rgba(255,255,255,.09); --text:#f4f4f2; --muted:#9c9ca6;
-    --accent:#c8f62e; --accent-rgb:200,246,46; --radius:16px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
-  ::selection{background:var(--accent);color:#000}
-  a{color:inherit;text-decoration:none}
-  .container{max-width:1200px;margin:0 auto;padding:0 20px}
-  .demo-bar{background:var(--accent);color:#000;text-align:center;font-size:12.5px;font-weight:700;padding:7px 12px}
-  header{position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(11,11,12,.82);border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:62px;gap:10px}
-  .logo{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:900;letter-spacing:.5px;cursor:pointer;flex-shrink:0}
-  .logo .mark{width:32px;height:32px;display:grid;place-items:center;background:var(--accent);color:#000;border-radius:9px;font-size:16px;flex-shrink:0}
-  .logo-img{height:32px;width:auto;max-width:120px;object-fit:contain;display:none}
-  .nav-links{display:flex;gap:2px;list-style:none}
-  .nav-links a{padding:8px 13px;border-radius:99px;font-size:14px;font-weight:600;color:var(--muted);transition:.2s;white-space:nowrap}
-  .nav-links a:hover{color:var(--text);background:var(--panel2)}
-  .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;cursor:pointer;font-family:inherit;font-weight:800;border-radius:99px;transition:.25s;font-size:14px;white-space:nowrap}
-  .btn-accent{background:var(--accent);color:#000;padding:9px 18px}
-  .btn-accent:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(var(--accent-rgb),.25)}
-  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text);padding:9px 18px}
-  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-  .btn-block{width:100%;padding:13px;font-size:15px}
-  .menu-btn{display:none;width:38px;height:38px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:18px;cursor:pointer}
-  .mobile-menu{display:none;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 20px 16px}
-  .mobile-menu.show{display:block}
-  .mobile-menu a{display:block;padding:12px 6px;font-size:15px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
-  .hero{padding:56px 0 46px;position:relative;background-size:cover;background-position:center}
-  .hero .container{position:relative;z-index:1}
-  .hero-glow{position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:800px;height:560px;pointer-events:none;background:radial-gradient(closest-side,rgba(var(--accent-rgb),.13),transparent 70%)}
-  .hero.has-bg::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:0}
-  .badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--panel);font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:600}
-  .badge .dot{width:6px;height:6px;border-radius:99px;background:var(--accent);animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  .hero h1{font-size:clamp(40px,11vw,100px);font-weight:900;line-height:1.02;letter-spacing:-2px;text-transform:uppercase}
-  .hero h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--accent)}
-  .hero p{color:var(--muted);font-size:15px;max-width:520px;margin:20px 0 28px;line-height:1.7}
-  .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
-  .stats{display:flex;gap:36px;margin-top:44px;flex-wrap:wrap}
-  .stat .num{font-size:27px;font-weight:900}
-  .stat .num em{color:var(--accent);font-style:normal}
-  .stat .label{color:var(--muted);font-size:12px;margin-top:3px}
-  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 0;overflow:hidden;background:var(--panel)}
-  .marquee-track{display:flex;white-space:nowrap;animation:scroll 26s linear infinite;width:max-content}
-  .marquee span{font-size:13px;font-weight:800;letter-spacing:2px;color:var(--muted);padding:0 18px}
-  .marquee span b{color:var(--accent);font-weight:800}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .products{padding:56px 0}
-  .section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px}
-  .section-head h2{font-size:clamp(26px,5vw,44px);font-weight:900;letter-spacing:-1px}
-  .section-head .sub{color:var(--muted);font-size:13px;margin-top:8px;line-height:1.6}
-  .search-bar{position:relative;margin-bottom:16px}
-  .search-bar input{width:100%;height:46px;padding:0 16px 0 44px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:.2s}
-  .search-bar input:focus{border-color:var(--accent)}
-  .search-bar svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--muted);pointer-events:none}
-  .filters{display:flex;gap:7px;flex-wrap:wrap}
-  .filter{padding:8px 15px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;transition:.2s}
-  .filter:hover{color:var(--text)}
-  .filter.active{background:var(--accent);color:#000;border-color:var(--accent)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.3s;position:relative}
-  .card:hover{transform:translateY(-5px);border-color:rgba(var(--accent-rgb),.4);box-shadow:0 16px 40px rgba(0,0,0,.5)}
-  .thumb{height:150px;display:grid;place-items:center;position:relative;overflow:hidden}
-  .thumb img{width:100%;height:100%;object-fit:cover}
-  .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,11,12,.75));pointer-events:none}
-  .thumb .big{font-size:34px;font-weight:900;letter-spacing:2px;opacity:.92;text-shadow:0 8px 30px rgba(0,0,0,.4);position:relative;z-index:1;text-align:center;padding:0 10px}
-  .tag{position:absolute;top:10px;left:10px;z-index:2;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:800;background:rgba(0,0,0,.6)}
-  .tag.free{background:#fff;color:#000}
-  .tag.hot{background:#ff4d4d;color:#fff}
-  .card-body{padding:14px}
-  .card-body .cat{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:800}
-  .card-body h3{font-size:15px;margin:6px 0 10px;font-weight:800;line-height:1.35}
-  .card-foot{display:flex;justify-content:space-between;align-items:center;gap:6px}
-  .price{font-size:17px;font-weight:900;white-space:nowrap}
-  .price.free{color:var(--accent);font-size:13px}
-  .price .old{color:var(--muted);text-decoration:line-through;font-size:12px;margin-right:6px;font-weight:400}
-  .dl-hint{font-size:11px;color:var(--muted);white-space:nowrap}
-  .rank-list{display:flex;flex-direction:column;gap:10px}
-  .rank-item{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.2s}
-  .rank-item:hover{border-color:rgba(var(--accent-rgb),.4)}
-  .rank-no{font-size:22px;font-weight:900;width:34px;text-align:center;flex-shrink:0;color:var(--muted)}
-  .rank-no.top{color:var(--accent)}
-  .rank-cover{width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--panel2);display:grid;place-items:center;font-size:12px;font-weight:900;color:#fff}
-  .rank-info{flex:1;min-width:0}
-  .rank-title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .rank-meta{font-size:11.5px;color:var(--muted);margin-top:3px}
-  .rank-dl{font-size:12px;color:var(--accent);font-weight:800;white-space:nowrap;flex-shrink:0}
-  .perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:10px 0 60px}
-  .perk{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 18px}
-  .perk .ico{font-size:22px;margin-bottom:10px;display:block}
-  .perk h4{font-size:15px;font-weight:800;margin-bottom:5px}
-  .perk p{font-size:12.5px;color:var(--muted);line-height:1.6}
-  .faq{padding-bottom:60px}
-  .faq-item{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:var(--panel);overflow:hidden}
-  .faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 18px;background:none;border:none;color:var(--text);font-family:inherit;font-size:14.5px;font-weight:800;cursor:pointer;text-align:left}
-  .faq-q .ic{transition:.3s;color:var(--accent);font-size:20px;flex-shrink:0;line-height:1}
-  .faq-item.open .faq-q .ic{transform:rotate(45deg)}
-  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
-  .faq-a p{padding:0 18px 17px;color:var(--muted);font-size:13.5px;line-height:1.75}
-  footer{border-top:1px solid var(--line);padding:44px 0 24px;background:var(--panel)}
-  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:36px}
-  .foot-grid h4{font-size:12px;letter-spacing:2px;color:var(--muted);margin-bottom:14px}
-  .foot-grid ul{list-style:none}
-  .foot-grid li{margin-bottom:9px}
-  .foot-grid a{color:var(--text);font-size:13.5px;transition:.2s}
-  .foot-grid a:hover{color:var(--accent)}
-  .foot-brand p{color:var(--muted);font-size:13px;margin:12px 0 16px;line-height:1.7;max-width:280px}
-  .socials{display:flex;gap:8px}
-  .socials a{width:34px;height:34px;border-radius:99px;border:1px solid var(--line);display:grid;place-items:center;font-size:14px}
-  .copyright{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-  .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s}
-  .modal.show{opacity:1;pointer-events:auto}
-  .modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.82)}
-  .modal-box{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:20px;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;transform:translateY(26px) scale(.97);transition:.32s}
-  .modal.show .modal-box{transform:none}
-  .modal-close{position:absolute;top:12px;right:12px;z-index:5;width:36px;height:36px;border-radius:99px;border:1px solid var(--line);background:rgba(0,0,0,.5);color:var(--text);font-size:16px;cursor:pointer}
-  .modal-close:hover{background:var(--accent);color:#000}
-  .modal-thumb{height:190px;display:grid;place-items:center;position:relative;overflow:hidden}
-  .modal-thumb img{width:100%;height:100%;object-fit:cover}
-  .modal-thumb .big{font-size:52px;font-weight:900;letter-spacing:3px;text-align:center;padding:0 14px}
-  .modal-thumb .tag{top:auto;bottom:12px;left:12px;font-size:11px;padding:5px 11px}
-  .modal-content{padding:24px}
-  .modal-content .cat{font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;font-weight:800}
-  .modal-content h2{font-size:24px;margin:8px 0 12px;font-weight:900;line-height:1.3}
-  .modal-content .desc{color:var(--muted);line-height:1.8;font-size:14px;margin-bottom:18px;white-space:pre-wrap}
-  .modal-foot{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
-  .modal-foot .price{font-size:26px}
-  .form-group{margin-bottom:14px}
-  .form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700}
-  .form-group input{width:100%;height:44px;padding:0 14px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none}
-  .form-group input:focus{border-color:var(--accent)}
-  .form-switch{text-align:center;font-size:13px;color:var(--muted);margin-top:14px}
-  .form-switch span{color:var(--accent);cursor:pointer;font-weight:700}
-  .qr-box{border:2px dashed var(--line);border-radius:14px;padding:24px 16px;text-align:center;margin:16px 0;color:var(--muted);font-size:13px;line-height:1.7}
-  .qr-box .big-emoji{font-size:38px;display:block;margin-bottom:8px}
-  .pay-info{background:var(--panel2);border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.8}
-  .pay-info .row{display:flex;justify-content:space-between;gap:10px}
-  .pay-info .row b{color:var(--accent)}
-  .pay-info .row span{color:var(--muted)}
-  .order-item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--panel2)}
-  .order-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
-  .order-title{font-weight:800;font-size:14px}
-  .status{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:800;white-space:nowrap}
-  .st-pending{background:rgba(255,180,0,.15);color:#ffb400}
-  .st-submitted{background:rgba(80,140,255,.15);color:#6f9dff}
-  .st-paid{background:rgba(var(--accent-rgb),.15);color:var(--accent)}
-  .st-cancelled{background:rgba(255,255,255,.08);color:var(--muted)}
-  .order-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-  .order-actions .btn{padding:7px 14px;font-size:12.5px}
-  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:12px 22px;border-radius:99px;font-weight:800;font-size:14px;z-index:300;transition:.4s;box-shadow:0 14px 40px rgba(var(--accent-rgb),.35);max-width:90vw;text-align:center}
-  .toast.show{transform:translateX(-50%) translateY(0)}
-  @media(max-width:820px){
-    .nav-links{display:none}.menu-btn{display:grid;place-items:center}
-    .foot-grid{grid-template-columns:1fr 1fr}
-  }
-  @media(max-width:560px){
-    .grid{grid-template-columns:1fr 1fr;gap:11px}
-    .thumb{height:104px}.thumb .big{font-size:23px}
-    .card-body{padding:11px}.card-body h3{font-size:13px;margin:5px 0 8px}
-    .price{font-size:15px}.price.free{font-size:12px}.dl-hint{display:none}
-    .tag{font-size:9px;padding:3px 7px;top:8px;left:8px}
-    .hero{padding:40px 0 34px}.stats{gap:24px;margin-top:32px}
-    .modal-content{padding:18px}.modal-content h2{font-size:20px}
-    .modal-thumb{height:150px}.modal-thumb .big{font-size:38px}
-    .foot-grid{grid-template-columns:1fr;gap:26px}
-    .btn-accent,.btn-ghost{padding:9px 15px;font-size:13px}
-  }
+:root{--bg:#0b0b0c;--panel:#141416;--panel2:#1b1b1e;--line:rgba(255,255,255,.09);--text:#f4f4f2;--muted:#9c9ca6;--accent:#c8f62e;--accent-rgb:200,246,46;--radius:16px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+::selection{background:var(--accent);color:#000}a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.demo-bar{background:var(--accent);color:#000;text-align:center;font-size:12.5px;font-weight:700;padding:7px 12px}
+header{position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);background:rgba(11,11,12,.82);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:900;cursor:pointer;flex-shrink:0}
+.logo .mark{width:32px;height:32px;display:grid;place-items:center;background:var(--accent);color:#000;border-radius:9px;font-size:16px;flex-shrink:0}
+.logo-img{height:32px;width:auto;max-width:130px;object-fit:contain;display:none}
+.nav-links{display:flex;gap:2px;list-style:none}
+.nav-links a{padding:8px 13px;border-radius:99px;font-size:14px;font-weight:600;color:var(--muted)}
+.nav-links a:hover{color:var(--text);background:var(--panel2)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;cursor:pointer;font-family:inherit;font-weight:800;border-radius:99px;transition:.25s;font-size:14px;white-space:nowrap}
+.btn-accent{background:var(--accent);color:#000;padding:9px 18px}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(var(--accent-rgb),.25)}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text);padding:9px 18px}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-block{width:100%;padding:13px;font-size:15px}
+.menu-btn{display:none;width:38px;height:38px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:18px;cursor:pointer}
+.mobile-menu{display:none;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 20px 16px}
+.mobile-menu.show{display:block}
+.mobile-menu a{display:block;padding:12px 6px;font-size:15px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
+.hero{padding:56px 0 46px;position:relative;background-size:cover;background-position:center}
+.hero .container{position:relative;z-index:1}
+.hero-glow{position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:800px;height:560px;pointer-events:none;background:radial-gradient(closest-side,rgba(var(--accent-rgb),.13),transparent 70%)}
+.hero.has-bg::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:0}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--panel);font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:600}
+.badge .dot{width:6px;height:6px;border-radius:99px;background:var(--accent);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(40px,11vw,100px);font-weight:900;line-height:1.02;letter-spacing:-2px;text-transform:uppercase}
+.hero h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--accent)}
+.hero p{color:var(--muted);font-size:15px;max-width:520px;margin:20px 0 28px;line-height:1.7}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.stats{display:flex;gap:36px;margin-top:44px;flex-wrap:wrap}
+.stat .num{font-size:27px;font-weight:900}.stat .num em{color:var(--accent);font-style:normal}
+.stat .label{color:var(--muted);font-size:12px;margin-top:3px}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 0;overflow:hidden;background:var(--panel)}
+.marquee-track{display:flex;white-space:nowrap;animation:scroll 26s linear infinite;width:max-content}
+.marquee span{font-size:13px;font-weight:800;letter-spacing:2px;color:var(--muted);padding:0 18px}
+.marquee span b{color:var(--accent)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.products{padding:56px 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px}
+.section-head h2{font-size:clamp(26px,5vw,44px);font-weight:900;letter-spacing:-1px}
+.section-head .sub{color:var(--muted);font-size:13px;margin-top:8px}
+.search-bar{position:relative;margin-bottom:16px}
+.search-bar input{width:100%;height:46px;padding:0 16px 0 44px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none}
+.search-bar input:focus{border-color:var(--accent)}
+.search-bar svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--muted);pointer-events:none}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filter{padding:8px 15px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;font-size:13px;font-weight:700}
+.filter:hover{color:var(--text)}.filter.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.3s;position:relative}
+.card:hover{transform:translateY(-5px);border-color:rgba(var(--accent-rgb),.4);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.thumb{height:150px;display:grid;place-items:center;position:relative;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,11,12,.75));pointer-events:none}
+.thumb .big{font-size:34px;font-weight:900;letter-spacing:2px;opacity:.92;position:relative;z-index:1;text-align:center;padding:0 10px}
+.tag{position:absolute;top:10px;left:10px;z-index:2;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:800;background:rgba(0,0,0,.6)}
+.tag.free{background:#fff;color:#000}.tag.hot{background:#ff4d4d;color:#fff}
+.card-body{padding:14px}
+.card-body .cat{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:800}
+.card-body h3{font-size:15px;margin:6px 0 10px;font-weight:800;line-height:1.35}
+.card-foot{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.price{font-size:17px;font-weight:900;white-space:nowrap}.price.free{color:var(--accent);font-size:13px}
+.price .old{color:var(--muted);text-decoration:line-through;font-size:12px;margin-right:6px;font-weight:400}
+.dl-hint{font-size:11px;color:var(--muted);white-space:nowrap}
+.rank-list{display:flex;flex-direction:column;gap:10px}
+.rank-item{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.rank-item:hover{border-color:rgba(var(--accent-rgb),.4)}
+.rank-no{font-size:22px;font-weight:900;width:34px;text-align:center;flex-shrink:0;color:var(--muted)}
+.rank-no.top{color:var(--accent)}
+.rank-cover{width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--panel2);display:grid;place-items:center;font-size:12px;font-weight:900;color:#fff}
+.rank-info{flex:1;min-width:0}
+.rank-title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-meta{font-size:11.5px;color:var(--muted);margin-top:3px}
+.rank-dl{font-size:12px;color:var(--accent);font-weight:800;white-space:nowrap;flex-shrink:0}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:10px 0 60px}
+.perk{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 18px}
+.perk .ico{font-size:22px;margin-bottom:10px;display:block}
+.perk h4{font-size:15px;font-weight:800;margin-bottom:5px}
+.perk p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.faq{padding-bottom:60px}
+.faq-item{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:var(--panel);overflow:hidden}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 18px;background:none;border:none;color:var(--text);font-family:inherit;font-size:14.5px;font-weight:800;cursor:pointer;text-align:left}
+.faq-q .ic{transition:.3s;color:var(--accent);font-size:20px;flex-shrink:0}
+.faq-item.open .faq-q .ic{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 18px 17px;color:var(--muted);font-size:13.5px;line-height:1.75}
+footer{border-top:1px solid var(--line);padding:44px 0 24px;background:var(--panel)}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:36px}
+.foot-grid h4{font-size:12px;letter-spacing:2px;color:var(--muted);margin-bottom:14px}
+.foot-grid ul{list-style:none}.foot-grid li{margin-bottom:9px}
+.foot-grid a{color:var(--text);font-size:13.5px}.foot-grid a:hover{color:var(--accent)}
+.foot-brand p{color:var(--muted);font-size:13px;margin:12px 0 16px;line-height:1.7;max-width:280px}
+.socials{display:flex;gap:8px}
+.socials a{width:34px;height:34px;border-radius:99px;border:1px solid var(--line);display:grid;place-items:center;font-size:14px}
+.copyright{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal.show{opacity:1;pointer-events:auto}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.82)}
+.modal-box{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:20px;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;transform:scale(.97);transition:.3s}
+.modal.show .modal-box{transform:none}
+.modal-close{position:absolute;top:12px;right:12px;z-index:5;width:36px;height:36px;border-radius:99px;border:1px solid var(--line);background:rgba(0,0,0,.5);color:var(--text);font-size:16px;cursor:pointer}
+.modal-close:hover{background:var(--accent);color:#000}
+.modal-thumb{height:190px;display:grid;place-items:center;position:relative;overflow:hidden}
+.modal-thumb img{width:100%;height:100%;object-fit:cover}
+.modal-thumb .big{font-size:52px;font-weight:900;letter-spacing:3px;text-align:center;padding:0 14px}
+.modal-thumb .tag{top:auto;bottom:12px;left:12px;font-size:11px;padding:5px 11px}
+.modal-content{padding:24px}
+.modal-content .cat{font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;font-weight:800}
+.modal-content h2{font-size:24px;margin:8px 0 12px;font-weight:900;line-height:1.3}
+.modal-content .desc{color:var(--muted);line-height:1.8;font-size:14px;margin-bottom:18px;white-space:pre-wrap}
+.modal-foot{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.modal-foot .price{font-size:26px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700}
+.form-group input{width:100%;height:44px;padding:0 14px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none}
+.form-group input:focus{border-color:var(--accent)}
+.form-switch{text-align:center;font-size:13px;color:var(--muted);margin-top:14px}
+.form-switch span{color:var(--accent);cursor:pointer;font-weight:700}
+.qr-box{border:2px dashed var(--line);border-radius:14px;padding:24px 16px;text-align:center;margin:16px 0;color:var(--muted);font-size:13px;line-height:1.7}
+.qr-box .big-emoji{font-size:38px;display:block;margin-bottom:8px}
+.pay-info{background:var(--panel2);border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.8}
+.pay-info .row{display:flex;justify-content:space-between;gap:10px}
+.pay-info .row b{color:var(--accent)}.pay-info .row span{color:var(--muted)}
+.order-item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--panel2)}
+.order-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.order-title{font-weight:800;font-size:14px}
+.status{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:800;white-space:nowrap}
+.st-pending{background:rgba(255,180,0,.15);color:#ffb400}.st-submitted{background:rgba(80,140,255,.15);color:#6f9dff}
+.st-paid{background:rgba(var(--accent-rgb),.15);color:var(--accent)}.st-cancelled{background:rgba(255,255,255,.08);color:var(--muted)}
+.order-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.order-actions .btn{padding:7px 14px;font-size:12.5px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:12px 22px;border-radius:99px;font-weight:800;font-size:14px;z-index:300;transition:.4s;box-shadow:0 14px 40px rgba(var(--accent-rgb),.35);max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:820px){.nav-links{display:none}.menu-btn{display:grid;place-items:center}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid{grid-template-columns:1fr 1fr;gap:11px}.thumb{height:104px}.thumb .big{font-size:23px}.card-body{padding:11px}.card-body h3{font-size:13px;margin:5px 0 8px}.price{font-size:15px}.price.free{font-size:12px}.dl-hint{display:none}.tag{font-size:9px;padding:3px 7px;top:8px;left:8px}.hero{padding:40px 0 34px}.stats{gap:24px;margin-top:32px}.modal-content{padding:18px}.modal-content h2{font-size:20px}.modal-thumb{height:150px}.modal-thumb .big{font-size:38px}.foot-grid{grid-template-columns:1fr;gap:26px}.btn-accent,.btn-ghost{padding:9px 15px;font-size:13px}}
 </style>
 </head>
 <body>
-
 <div class="demo-bar" id="announceBar" style="display:none"></div>
-
 <header>
   <div class="container nav">
     <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-      <img id="logoImg" class="logo-img" alt="">
-      <span id="logoMark" class="mark">✳</span>
-      <span class="site-name">AEFFX</span>
+      <img id="logoImg" class="logo-img" alt=""><span id="logoMark" class="mark">✳</span><span class="site-name">AEFFX</span>
     </div>
     <ul class="nav-links">
       <li><a href="#" onclick="setFilter('all');scrollProducts()">首页</a></li>
@@ -208,7 +174,6 @@
     <a href="#" onclick="toggleMenu();openAuth('login')" id="mAuthLink">登录 / 注册</a>
   </div>
 </header>
-
 <section class="hero" id="home">
   <div class="hero-glow"></div>
   <div class="container">
@@ -226,134 +191,57 @@
     </div>
   </div>
 </section>
-
 <div class="marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
-
 <section class="products" id="products">
   <div class="container">
-    <div class="section-head">
-      <div><h2>全部资源</h2><p class="sub">即买即用 · 支持 AE / PR / 剪映 / 达芬奇</p></div>
-      <div class="filters" id="filters"></div>
-    </div>
-    <div class="search-bar">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input type="text" id="searchInput" placeholder="搜索资源名称、分类…" oninput="renderProducts()">
-    </div>
+    <div class="section-head"><div><h2>全部资源</h2><p class="sub">即买即用 · 支持 AE / PR / 剪映 / 达芬奇</p></div><div class="filters" id="filters"></div></div>
+    <div class="search-bar"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="text" id="searchInput" placeholder="搜索资源名称、分类…" oninput="renderProducts()"></div>
     <div class="grid" id="grid"></div>
   </div>
 </section>
-
 <section class="products" id="rank">
-  <div class="container">
-    <div class="section-head"><div><h2>🔥 下载排行榜</h2><p class="sub">大家下载最多的资源</p></div></div>
-    <div class="rank-list" id="rankList"></div>
-  </div>
+  <div class="container"><div class="section-head"><div><h2>🔥 下载排行榜</h2><p class="sub">大家下载最多的资源</p></div></div><div class="rank-list" id="rankList"></div></div>
 </section>
-
-<section class="container">
-  <div class="perks">
-    <div class="perk"><span class="ico">⚡</span><h4>即时下载</h4><p>付款确认后立刻获取文件，无需等待。</p></div>
-    <div class="perk"><span class="ico">🔄</span><h4>永久更新</h4><p>一次购买，后续更新全部免费。</p></div>
-    <div class="perk"><span class="ico">📄</span><h4>商用授权</h4><p>可用于个人及客户商单项目。</p></div>
-    <div class="perk"><span class="ico">🛟</span><h4>售后无忧</h4><p>文件有问题 7 天内可退换。</p></div>
-  </div>
-</section>
-
+<section class="container"><div class="perks">
+  <div class="perk"><span class="ico">⚡</span><h4>即时下载</h4><p>付款确认后立刻获取文件，无需等待。</p></div>
+  <div class="perk"><span class="ico">🔄</span><h4>永久更新</h4><p>一次购买，后续更新全部免费。</p></div>
+  <div class="perk"><span class="ico">📄</span><h4>商用授权</h4><p>可用于个人及客户商单项目。</p></div>
+  <div class="perk"><span class="ico">🛟</span><h4>售后无忧</h4><p>文件有问题 7 天内可退换。</p></div>
+</div></section>
 <section class="faq container" id="faq">
   <div class="section-head"><div><h2>常见问题</h2><p class="sub">下载前你需要知道的几件事。</p></div></div>
   <div id="faqList"></div>
 </section>
-
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <div class="logo"><span class="mark">✳</span> <span class="site-name">AEFFX</span></div>
-        <p id="footerAbout">AE 预设、模板与工程文件。由剪辑师打造，为剪辑师服务。</p>
-        <div class="socials"><a href="#">💬</a><a href="#">▶</a><a href="#">🎵</a><a href="#">📕</a></div>
-      </div>
-      <div><h4>资源分类</h4><ul>
-        <li><a href="#" onclick="setFilter('all');scrollProducts()">全部资源</a></li>
-        <li><a href="#" onclick="setFilter('__free');scrollProducts()">免费资源</a></li>
-      </ul></div>
-      <div><h4>帮助</h4><ul>
-        <li><a href="#faq">常见问题</a></li>
-        <li><a href="#" onclick="showContact()">联系客服</a></li>
-        <li><a href="#" onclick="openAuth('login')">登录 / 注册</a></li>
-      </ul></div>
-    </div>
-    <div class="copyright"><span>© 2026 <span class="site-name">AEFFX</span></span><span>用 ✦ 为剪辑师打造</span></div>
+<footer><div class="container">
+  <div class="foot-grid">
+    <div class="foot-brand"><div class="logo"><span class="mark">✳</span> <span class="site-name">AEFFX</span></div><p id="footerAbout">AE 预设、模板与工程文件。由剪辑师打造，为剪辑师服务。</p><div class="socials"><a href="#">💬</a><a href="#">▶</a><a href="#">🎵</a><a href="#">📕</a></div></div>
+    <div><h4>资源分类</h4><ul><li><a href="#" onclick="setFilter('all');scrollProducts()">全部资源</a></li><li><a href="#" onclick="setFilter('__free');scrollProducts()">免费资源</a></li></ul></div>
+    <div><h4>帮助</h4><ul><li><a href="#faq">常见问题</a></li><li><a href="#" onclick="showContact()">联系客服</a></li><li><a href="#" onclick="openAuth('login')">登录 / 注册</a></li></ul></div>
   </div>
-</footer>
-
-<div class="modal" id="modal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('modal')">
-  <div class="modal-backdrop"></div>
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal')">✕</button>
-    <div class="modal-thumb" id="mThumb"></div>
-    <div class="modal-content" id="mContent"></div>
-  </div>
-</div>
-
-<div class="modal" id="payModal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('payModal')">
-  <div class="modal-backdrop"></div>
-  <div class="modal-box" style="max-width:440px">
-    <button class="modal-close" onclick="closeModal('payModal')">✕</button>
-    <div class="modal-content" id="payContent" style="padding-top:44px"></div>
-  </div>
-</div>
-
-<div class="modal" id="authModal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('authModal')">
-  <div class="modal-backdrop"></div>
-  <div class="modal-box" style="max-width:400px">
-    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
-    <div class="modal-content" style="padding-top:44px">
-      <div class="cat">登录 / 注册</div>
-      <h2 id="authTitle" style="margin:6px 0 18px;font-size:24px">登录账号</h2>
-      <div class="form-group"><label>邮箱</label><input type="email" id="authEmail" placeholder="you@example.com"></div>
-      <div class="form-group"><label>密码</label><input type="password" id="authPass" placeholder="至少 6 位"></div>
-      <button class="btn btn-accent btn-block" onclick="doAuth()" id="authSubmit" style="margin-top:6px">登录</button>
-      <div class="form-switch"><span id="authSwitch">没有账号？立即注册</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="myModal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('myModal')">
-  <div class="modal-backdrop"></div>
-  <div class="modal-box" style="max-width:560px">
-    <button class="modal-close" onclick="closeModal('myModal')">✕</button>
-    <div class="modal-content" style="padding-top:44px">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px">
-        <div><div class="cat">我的账号</div><div id="myEmail" style="font-size:15px;font-weight:800;margin-top:4px"></div></div>
-        <button class="btn btn-ghost" onclick="logout()" style="padding:8px 14px;font-size:12.5px">退出</button>
-      </div>
-      <h5 style="font-size:11px;letter-spacing:2px;color:var(--muted);margin-bottom:10px;font-weight:800">我的订单 / 下载</h5>
-      <div id="myBody"></div>
-    </div>
-  </div>
-</div>
-
+  <div class="copyright"><span>© 2026 <span class="site-name">AEFFX</span></span><span>用 ✦ 为剪辑师打造</span></div>
+</div></footer>
+<div class="modal" id="modal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('modal')"><div class="modal-backdrop"></div><div class="modal-box"><button class="modal-close" onclick="closeModal('modal')">✕</button><div class="modal-thumb" id="mThumb"></div><div class="modal-content" id="mContent"></div></div></div>
+<div class="modal" id="payModal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('payModal')"><div class="modal-backdrop"></div><div class="modal-box" style="max-width:440px"><button class="modal-close" onclick="closeModal('payModal')">✕</button><div class="modal-content" id="payContent" style="padding-top:44px"></div></div></div>
+<div class="modal" id="authModal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('authModal')"><div class="modal-backdrop"></div><div class="modal-box" style="max-width:400px"><button class="modal-close" onclick="closeModal('authModal')">✕</button><div class="modal-content" style="padding-top:44px"><div class="cat">登录 / 注册</div><h2 id="authTitle" style="margin:6px 0 18px;font-size:24px">登录账号</h2><div class="form-group"><label>邮箱</label><input type="email" id="authEmail" placeholder="you@example.com"></div><div class="form-group"><label>密码</label><input type="password" id="authPass" placeholder="至少 6 位"></div><button class="btn btn-accent btn-block" onclick="doAuth()" id="authSubmit" style="margin-top:6px">登录</button><div class="form-switch"><span id="authSwitch">没有账号？立即注册</span></div></div></div></div>
+<div class="modal" id="myModal" onclick="if(event.target===this||event.target.classList.contains('modal-backdrop'))closeModal('myModal')"><div class="modal-backdrop"></div><div class="modal-box" style="max-width:560px"><button class="modal-close" onclick="closeModal('myModal')">✕</button><div class="modal-content" style="padding-top:44px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px"><div><div class="cat">我的账号</div><div id="myEmail" style="font-size:15px;font-weight:800;margin-top:4px"></div></div><button class="btn btn-ghost" onclick="logout()" style="padding:8px 14px;font-size:12.5px">退出</button></div><h5 style="font-size:11px;letter-spacing:2px;color:var(--muted);margin-bottom:10px;font-weight:800">我的订单 / 下载</h5><div id="myBody"></div></div></div></div>
 <div class="toast" id="toast"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
-const sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);
-let currentUser=null, products=[], settings={}, activeFilter='all', authMode='login', currentPay=null;
+const sb=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
+let currentUser=null,products=[],settings={},activeFilter='all',authMode='login',currentPay=null;
 const FONTS={system:'-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif',heiti:'"PingFang SC","Microsoft YaHei","Heiti SC",sans-serif',songti:'"Songti SC",SimSun,serif',kaiti:'"Kaiti SC",KaiTi,serif',yuanti:'"Yuanti SC","YouYuan",sans-serif'};
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-function hexToRgb(h){const m=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);return m?`${parseInt(m[1],16)},${parseInt(m[2],16)},${parseInt(m[3],16)}`:null;}
-
-(async function init(){
-  const words=["After Effects","Premiere Pro","剪映专业版","达芬奇","调色 LUT","预设","工程文件","免费下载","即时发货","永久更新"];
-  const half=words.map(w=>`<span>✦ <b>${w}</b></span>`).join("");
-  document.getElementById("marqueeTrack").innerHTML=half+half;
+function hexToRgb(h){const m=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h||'');return m?`${parseInt(m[1],16)},${parseInt(m[2],16)},${parseInt(m[3],16)}`:null;}
+(async function(){
+  const w=["After Effects","Premiere Pro","剪映","达芬奇","调色LUT","预设","工程文件","免费下载","即时发货","永久更新"];
+  const h=w.map(x=>`<span>✦ <b>${x}</b></span>`).join("");
+  document.getElementById("marqueeTrack").innerHTML=h+h;
   const {data:{session}}=await sb.auth.getSession();
   currentUser=session?.user||null;
   sb.auth.onAuthStateChange((e,s)=>{currentUser=s?.user||null;updateAuthUI();});
-  await loadSettings(); await loadProducts(); updateAuthUI();
+  await loadSettings();await loadProducts();updateAuthUI();
 })();
-
 async function loadSettings(){
   const {data}=await sb.from('settings').select('*');
   (data||[]).forEach(r=>settings[r.key]=r.value);
@@ -365,7 +253,7 @@ async function loadSettings(){
   if(settings.font_url){const st=document.createElement('style');st.textContent=`@font-face{font-family:'CustomFont';src:url('${settings.font_url}');font-display:swap;}`;document.head.appendChild(st);document.body.style.fontFamily="'CustomFont',"+FONTS.system;}
   if(settings.favicon_url){let l=document.querySelector("link[rel='icon']");if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l);}l.href=settings.favicon_url;}
   if(settings.logo_url){const lg=document.getElementById('logoImg');lg.src=settings.logo_url;lg.style.display='block';const mk=document.getElementById('logoMark');if(mk)mk.style.display='none';}
-  if(settings.hero_bg_url){const h=document.querySelector('.hero');h.classList.add('has-bg');h.style.backgroundImage=`url('${settings.hero_bg_url}')`;}
+  if(settings.hero_bg_url){const hb=document.querySelector('.hero');hb.classList.add('has-bg');hb.style.backgroundImage=`url('${settings.hero_bg_url}')`;}
   document.querySelectorAll('.site-name').forEach(e=>{if(settings.site_name)e.textContent=settings.site_name;});
   if(settings.site_name)document.title=settings.site_name+' — '+(settings.site_tagline||'原创素材商店');
   if(settings.announcement){const b=document.getElementById('announceBar');b.textContent='📢 '+settings.announcement;b.style.display='block';}
@@ -377,34 +265,23 @@ async function loadSettings(){
   if(settings.footer_about)document.getElementById('footerAbout').textContent=settings.footer_about;
   renderFaq();
 }
-
 function renderFaq(){
   const raw=settings.faq_text||'';
   const items=raw.split('\n').filter(Boolean).map(line=>{const i=line.indexOf('|');return i<0?{q:line.trim(),a:''}:{q:line.slice(0,i).trim(),a:line.slice(i+1).trim()};});
   document.getElementById('faqList').innerHTML=items.map(it=>`<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">${esc(it.q)}<span class="ic">+</span></button><div class="faq-a"><p>${esc(it.a)}</p></div></div>`).join('');
 }
-
 async function loadProducts(){
   const {data}=await sb.from('products').select('*').eq('status','published').order('created_at',{ascending:false});
-  products=data||[];
-  document.getElementById('statCount').textContent=products.length+'+';
+  products=data||[];document.getElementById('statCount').textContent=products.length+'+';
   buildFilters();renderProducts();renderRank();
 }
-
 function buildFilters(){
   const cats=[...new Set(products.map(p=>p.category).filter(Boolean))];
-  document.getElementById('filters').innerHTML=`<button class="filter active" data-f="all" onclick="setFilter('all')">全部</button>`
-    +cats.map(c=>`<button class="filter" data-f="${esc(c)}" onclick="setFilter(this.dataset.f)">${esc(c)}</button>`).join('')
-    +`<button class="filter" data-f="__free" onclick="setFilter('__free')">免费</button>`;
+  document.getElementById('filters').innerHTML=`<button class="filter active" data-f="all" onclick="setFilter('all')">全部</button>`+cats.map(c=>`<button class="filter" data-f="${esc(c)}" onclick="setFilter(this.dataset.f)">${esc(c)}</button>`).join('')+`<button class="filter" data-f="__free" onclick="setFilter('__free')">免费</button>`;
 }
 function setFilter(f){activeFilter=f;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.f===f));renderProducts();}
 function scrollProducts(){document.getElementById('products').scrollIntoView({behavior:'smooth'});}
-
-function thumbHtml(p){
-  if(p.cover_url)return `<div class="thumb" style="background:#111"><img src="${esc(p.cover_url)}" alt=""></div>`;
-  return `<div class="thumb" style="background:linear-gradient(135deg,${esc(p.cover_color||'#1b1b1e')},var(--bg))"><span class="big">${esc(p.glyph||'AE')}</span></div>`;
-}
-
+function thumbHtml(p){return p.cover_url?`<div class="thumb" style="background:#111"><img src="${esc(p.cover_url)}" alt=""></div>`:`<div class="thumb" style="background:linear-gradient(135deg,${esc(p.cover_color||'#1b1b1e')},var(--bg))"><span class="big">${esc(p.glyph||'AE')}</span></div>`;}
 function renderProducts(){
   const grid=document.getElementById('grid');
   const q=(document.getElementById('searchInput').value||'').trim().toLowerCase();
@@ -414,40 +291,23 @@ function renderProducts(){
     return okCat&&okQ;
   });
   if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 0">暂无资源</div>`;return;}
-  grid.innerHTML=list.map(p=>{
-    const price=Number(p.price)||0;
-    const old=p.old_price?`<span class="old">¥${Number(p.old_price)}</span>`:'';
-    const tag=price===0?`<span class="tag free">免费</span>`:(p.old_price?`<span class="tag hot">特惠</span>`:'');
-    return `<div class="card" onclick="openProduct(${p.id})">${thumbHtml(p)}${tag}
-      <div class="card-body"><div class="cat">${esc(p.category||'资源')}</div><h3>${esc(p.title)}</h3>
-      <div class="card-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div><span class="dl-hint">⤓ 即时</span></div></div></div>`;
-  }).join('');
+  grid.innerHTML=list.map(p=>{const price=Number(p.price)||0;const old=p.old_price?`<span class="old">¥${Number(p.old_price)}</span>`:'';const tag=price===0?`<span class="tag free">免费</span>`:(p.old_price?`<span class="tag hot">特惠</span>`:'');return `<div class="card" onclick="openProduct(${p.id})">${thumbHtml(p)}${tag}<div class="card-body"><div class="cat">${esc(p.category||'资源')}</div><h3>${esc(p.title)}</h3><div class="card-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div><span class="dl-hint">⤓ 即时</span></div></div></div>`;}).join('');
 }
-
 function renderRank(){
   const list=[...products].sort((a,b)=>(b.downloads||0)-(a.downloads||0)).slice(0,5);
   const box=document.getElementById('rankList');
   if(!list.length){box.innerHTML='<div style="color:var(--muted);text-align:center;padding:20px">暂无数据</div>';return;}
-  box.innerHTML=list.map((p,i)=>`<div class="rank-item" onclick="openProduct(${p.id})">
-    <div class="rank-no ${i<3?'top':''}">${i+1}</div>
-    ${p.cover_url?`<img class="rank-cover" src="${esc(p.cover_url)}" style="object-fit:cover">`:`<div class="rank-cover" style="background:${esc(p.cover_color||'#1b1b1e')}">${esc(p.glyph||'AE')}</div>`}
-    <div class="rank-info"><div class="rank-title">${esc(p.title)}</div><div class="rank-meta">${esc(p.category||'资源')} · ${Number(p.price)===0?'免费':'¥'+Number(p.price)}</div></div>
-    <div class="rank-dl">⤓ ${p.downloads||0}</div></div>`).join('');
+  box.innerHTML=list.map((p,i)=>`<div class="rank-item" onclick="openProduct(${p.id})"><div class="rank-no ${i<3?'top':''}">${i+1}</div>${p.cover_url?`<img class="rank-cover" src="${esc(p.cover_url)}" style="object-fit:cover">`:`<div class="rank-cover" style="background:${esc(p.cover_color||'#1b1b1e')}">${esc(p.glyph||'AE')}</div>`}<div class="rank-info"><div class="rank-title">${esc(p.title)}</div><div class="rank-meta">${esc(p.category||'资源')} · ${Number(p.price)===0?'免费':'¥'+Number(p.price)}</div></div><div class="rank-dl">⤓ ${p.downloads||0}</div></div>`).join('');
 }
-
 function openProduct(id){
   const p=products.find(x=>String(x.id)===String(id));if(!p)return;
   const th=document.getElementById('mThumb');
   if(p.cover_url){th.innerHTML=`<img src="${esc(p.cover_url)}" alt=""><span class="tag free">${esc(p.category||'资源')}</span>`;th.style.background='#111';}
   else{th.style.background=`linear-gradient(135deg,${p.cover_color||'#1b1b1e'},var(--bg))`;th.innerHTML=`<div class="big">${esc(p.glyph||'AE')}</div><span class="tag free">${esc(p.category||'资源')}</span>`;}
   const price=Number(p.price)||0;const old=p.old_price?`<span class="old">¥${Number(p.old_price)}</span>`:'';
-  document.getElementById('mContent').innerHTML=`<div class="cat">${esc(p.category||'资源')}</div><h2>${esc(p.title)}</h2><p class="desc">${esc(p.description||'暂无介绍')}</p>
-    <div class="modal-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div>
-    <button class="btn btn-accent" onclick="buy(${p.id})">${price===0?'免费下载':'立即购买'}</button></div>
-    <div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.7">${price===0?'免费资源需登录后下载':'付款方式：微信 / 支付宝，管理员确认后自动开通下载'}</div>`;
+  document.getElementById('mContent').innerHTML=`<div class="cat">${esc(p.category||'资源')}</div><h2>${esc(p.title)}</h2><p class="desc">${esc(p.description||'暂无介绍')}</p><div class="modal-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div><button class="btn btn-accent" onclick="buy(${p.id})">${price===0?'免费下载':'立即购买'}</button></div><div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.7">${price===0?'免费资源需登录后下载':'付款方式：微信 / 支付宝，管理员确认后自动开通下载'}</div>`;
   openModalEl('modal');
 }
-
 async function buy(id){
   const p=products.find(x=>String(x.id)===String(id));if(!p)return;
   if(!currentUser){showToast('请先登录');closeModal('modal');openAuth('login');return;}
@@ -459,36 +319,24 @@ async function buy(id){
   if(error){showToast('下单失败：'+(error.message||''));return;}
   showPayModal(p,data);
 }
-
 function showPayModal(p,order){
   currentPay={p,order};closeModal('modal');
-  const price=Number(p.price)||0;const qrW=settings.pay_qr_wechat,qrA=settings.pay_qr_alipay;
-  let qrHtml;
-  if(qrW||qrA){qrHtml=`<div style="display:flex;gap:10px;justify-content:center;margin:14px 0">
-    ${qrW?`<div style="text-align:center"><img src="${esc(qrW)}" style="width:132px;height:132px;object-fit:contain;border-radius:10px;background:#fff;padding:4px"><div style="font-size:11px;color:var(--muted);margin-top:5px">微信</div></div>`:''}
-    ${qrA?`<div style="text-align:center"><img src="${esc(qrA)}" style="width:132px;height:132px;object-fit:contain;border-radius:10px;background:#fff;padding:4px"><div style="font-size:11px;color:var(--muted);margin-top:5px">支付宝</div></div>`:''}</div>`;}
+  const price=Number(p.price)||0;const qrW=settings.pay_qr_wechat,qrA=settings.pay_qr_alipay;let qrHtml;
+  if(qrW||qrA){qrHtml=`<div style="display:flex;gap:10px;justify-content:center;margin:14px 0">${qrW?`<div style="text-align:center"><img src="${esc(qrW)}" style="width:132px;height:132px;object-fit:contain;border-radius:10px;background:#fff;padding:4px"><div style="font-size:11px;color:var(--muted);margin-top:5px">微信</div></div>`:''}${qrA?`<div style="text-align:center"><img src="${esc(qrA)}" style="width:132px;height:132px;object-fit:contain;border-radius:10px;background:#fff;padding:4px"><div style="font-size:11px;color:var(--muted);margin-top:5px">支付宝</div></div>`:''}</div>`;}
   else{qrHtml=`<div class="qr-box"><span class="big-emoji">📱</span>管理员还没上传收款码<br><span style="font-size:12px">请先联系客服</span></div>`;}
   let actionHtml='';
   if(order.status==='paid')actionHtml=`<button class="btn btn-accent btn-block" onclick="downloadProductById(${p.id})">⬇ 下载文件</button>`;
   else if(order.status==='submitted')actionHtml=`<div style="text-align:center;color:#6f9dff;font-weight:700;font-size:14px;margin-top:14px">✅ 已提交付款，等待管理员确认…</div><button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="openMy()">刷新查看状态</button>`;
   else actionHtml=`<button class="btn btn-accent btn-block" onclick="submitPaid(${order.id})">我已完成付款</button>`;
-  document.getElementById('payContent').innerHTML=`<div class="cat" style="color:var(--accent);font-size:10px;letter-spacing:3px;font-weight:800">下单付款</div>
-    <h2 style="font-size:21px;margin:8px 0 4px;font-weight:900">${esc(p.title)}</h2>
-    <div style="color:var(--muted);font-size:13px;margin-bottom:10px">订单金额：<b style="color:var(--accent);font-size:20px">¥${price}</b></div>
-    ${qrHtml}
-    <div class="pay-info"><div class="row"><span>订单号</span><b>#${order.id}</b></div><div class="row"><span>联系方式</span><b>${esc(settings.contact||'联系客服')}</b></div></div>
-    <div style="margin-top:14px">${actionHtml}</div>
-    <div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center;line-height:1.6">付款后点「我已完成付款」，管理员确认后即可下载</div>`;
+  document.getElementById('payContent').innerHTML=`<div class="cat" style="color:var(--accent);font-size:10px;letter-spacing:3px;font-weight:800">下单付款</div><h2 style="font-size:21px;margin:8px 0 4px;font-weight:900">${esc(p.title)}</h2><div style="color:var(--muted);font-size:13px;margin-bottom:10px">订单金额：<b style="color:var(--accent);font-size:20px">¥${price}</b></div>${qrHtml}<div class="pay-info"><div class="row"><span>订单号</span><b>#${order.id}</b></div><div class="row"><span>联系方式</span><b>${esc(settings.contact||'联系客服')}</b></div></div><div style="margin-top:14px">${actionHtml}</div><div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center;line-height:1.6">付款后点「我已完成付款」，管理员确认后即可下载</div>`;
   openModalEl('payModal');
 }
-
 async function submitPaid(orderId){
   const {error}=await sb.from('orders').update({status:'submitted'}).eq('id',orderId);
   if(error){showToast('提交失败，请重试');return;}
   showToast('✅ 已提交，等待管理员确认');closeModal('payModal');
   if(currentPay)showPayModal(currentPay.p,{...currentPay.order,status:'submitted'});
 }
-
 async function downloadProductById(id){
   const p=products.find(x=>String(x.id)===String(id));if(!p){showToast('产品不存在');return;}
   if(!currentUser){showToast('请先登录');openAuth('login');return;}
@@ -497,30 +345,25 @@ async function downloadProductById(id){
   const {data,error}=await sb.storage.from('files').download(p.file_path);
   if(error){showToast('下载失败：'+(error.message||'请确认已付款'));return;}
   try{await sb.rpc('increment_download',{pid:p.id});}catch(e){}
-  const url=URL.createObjectURL(data);const a=document.createElement('a');
-  a.href=url;a.download=p.file_path.split('/').pop()||'download';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  const url=URL.createObjectURL(data);const a=document.createElement('a');a.href=url;a.download=p.file_path.split('/').pop()||'download';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 }
-
 function openAuth(mode){authMode=mode||'login';document.getElementById('authTitle').textContent=authMode==='login'?'登录账号':'注册账号';document.getElementById('authSubmit').textContent=authMode==='login'?'登录':'注册';document.getElementById('authSwitch').textContent=authMode==='login'?'没有账号？立即注册':'已有账号？去登录';openModalEl('authModal');}
 async function doAuth(){
   const email=document.getElementById('authEmail').value.trim();const pass=document.getElementById('authPass').value.trim();
-  if(!email||!pass){showToast('请填写邮箱和密码');return;}
-  if(pass.length<6){showToast('密码至少 6 位');return;}
+  if(!email||!pass){showToast('请填写邮箱和密码');return;}if(pass.length<6){showToast('密码至少 6 位');return;}
   const btn=document.getElementById('authSubmit');const old=btn.textContent;btn.textContent='处理中…';btn.disabled=true;
   try{
     if(authMode==='login'){const {error}=await sb.auth.signInWithPassword({email,password:pass});if(error)throw error;showToast('登录成功 ✅');closeModal('authModal');}
-    else{const {data,error}=await sb.auth.signUp({email,password:pass});if(error)throw error;if(data.session){showToast('注册成功，已自动登录 ✅');closeModal('authModal');}else{showToast('注册成功！请去邮箱验证后登录');closeModal('authModal');}}
+    else{const {data,error}=await sb.auth.signUp({email,password:pass});if(error)throw error;if(data.session){showToast('注册成功 ✅');closeModal('authModal');}else{showToast('注册成功！请去邮箱验证后登录');closeModal('authModal');}}
   }catch(e){showToast('操作失败：'+(e.message||'请检查邮箱密码'));}finally{btn.textContent=old;btn.disabled=false;}
 }
 document.getElementById('authSwitch')?.addEventListener('click',()=>openAuth(authMode==='login'?'register':'login'));
 async function logout(){await sb.auth.signOut();showToast('已退出');closeModal('myModal');}
-
 function updateAuthUI(){
   const btn=document.getElementById('authBtn');const mLink=document.getElementById('mAuthLink');
   if(currentUser){btn.textContent='我的';btn.onclick=openMy;if(mLink){mLink.textContent='我的账号 / 订单';mLink.onclick=(e)=>{e.preventDefault();toggleMenu();openMy();};}}
   else{btn.textContent='登录';btn.onclick=()=>openAuth('login');if(mLink){mLink.textContent='登录 / 注册';mLink.onclick=(e)=>{e.preventDefault();toggleMenu();openAuth('login');};}}
 }
-
 async function openMy(){
   if(!currentUser){openAuth('login');return;}
   document.getElementById('myEmail').textContent=currentUser.email;
@@ -531,29 +374,15 @@ async function openMy(){
   if(error){body.innerHTML='<div style="color:#ff6b6b;padding:12px">加载失败：'+esc(error.message)+'</div>';return;}
   const ids=[...new Set((orders||[]).map(o=>o.product_id))];let prodMap={};
   if(ids.length){const {data:ps}=await sb.from('products').select('*').in('id',ids);(ps||[]).forEach(p=>prodMap[p.id]=p);}
-  const stText={pending:'待付款',submitted:'待确认',paid:'已付款',cancelled:'已取消'};
-  const stCls={pending:'st-pending',submitted:'st-submitted',paid:'st-paid',cancelled:'st-cancelled'};
+  const stText={pending:'待付款',submitted:'待确认',paid:'已付款',cancelled:'已取消'};const stCls={pending:'st-pending',submitted:'st-submitted',paid:'st-paid',cancelled:'st-cancelled'};
   let html='';
   const freeOnes=products.filter(p=>Number(p.price)===0&&p.file_path);
-  if(freeOnes.length){html+=`<div style="font-size:12px;color:var(--muted);margin:4px 0 8px;font-weight:700">🎁 免费资源</div>`;
-    html+=freeOnes.map(p=>`<div class="order-item"><div class="order-head"><span class="order-title">${esc(p.title)}</span><span class="status st-paid">免费</span></div><div class="order-actions"><button class="btn btn-accent" onclick="downloadProductById(${p.id})">⬇ 下载</button></div></div>`).join('');
-    html+=`<div style="font-size:12px;color:var(--muted);margin:18px 0 8px;font-weight:700">🧾 我的订单</div>`;}
+  if(freeOnes.length){html+=`<div style="font-size:12px;color:var(--muted);margin:4px 0 8px;font-weight:700">🎁 免费资源</div>`+freeOnes.map(p=>`<div class="order-item"><div class="order-head"><span class="order-title">${esc(p.title)}</span><span class="status st-paid">免费</span></div><div class="order-actions"><button class="btn btn-accent" onclick="downloadProductById(${p.id})">⬇ 下载</button></div></div>`).join('')+`<div style="font-size:12px;color:var(--muted);margin:18px 0 8px;font-weight:700">🧾 我的订单</div>`;}
   if(!orders||!orders.length){html+=`<div style="color:var(--muted);text-align:center;padding:24px 0;font-size:13px">还没有订单～</div>`;}
-  else{html+=orders.map(o=>{
-    const p=prodMap[o.product_id];const title=p?p.title:'（产品已下架）';const price=p?Number(p.price)||0:0;let acts='';
-    if(o.status==='paid')acts=p&&p.file_path?`<button class="btn btn-accent" onclick="downloadProductById(${o.product_id})">⬇ 下载文件</button>`:`<span style="color:var(--muted);font-size:12px">文件准备中</span>`;
-    else if(o.status==='pending'||o.status==='submitted')acts=`<button class="btn btn-ghost" onclick="resumePay(${o.id},${o.product_id})">${o.status==='submitted'?'查看付款状态':'继续付款'}</button>`;
-    return `<div class="order-item"><div class="order-head"><span class="order-title">${esc(title)}</span><span class="status ${stCls[o.status]||''}">${stText[o.status]||o.status}</span></div>
-      <div style="font-size:12px;color:var(--muted)">订单号 #${o.id} · ¥${price} · ${new Date(o.created_at).toLocaleString('zh-CN')}</div>${acts?`<div class="order-actions">${acts}</div>`:''}</div>`;
-  }).join('');}
+  else{html+=orders.map(o=>{const p=prodMap[o.product_id];const title=p?p.title:'（产品已下架）';const price=p?Number(p.price)||0:0;let acts='';if(o.status==='paid')acts=p&&p.file_path?`<button class="btn btn-accent" onclick="downloadProductById(${o.product_id})">⬇ 下载文件</button>`:`<span style="color:var(--muted);font-size:12px">文件准备中</span>`;else if(o.status==='pending'||o.status==='submitted')acts=`<button class="btn btn-ghost" onclick="resumePay(${o.id},${o.product_id})">${o.status==='submitted'?'查看付款状态':'继续付款'}</button>`;return `<div class="order-item"><div class="order-head"><span class="order-title">${esc(title)}</span><span class="status ${stCls[o.status]||''}">${stText[o.status]||o.status}</span></div><div style="font-size:12px;color:var(--muted)">订单号 #${o.id} · ¥${price} · ${new Date(o.created_at).toLocaleString('zh-CN')}</div>${acts?`<div class="order-actions">${acts}</div>`:''}</div>`;}).join('');}
   body.innerHTML=html;
 }
-
-async function resumePay(orderId,productId){
-  const p=products.find(x=>String(x.id)===String(productId));if(!p){showToast('产品信息不存在');return;}
-  const {data:o}=await sb.from('orders').select('*').eq('id',orderId).single();if(!o){showToast('订单不存在');return;}
-  closeModal('myModal');showPayModal(p,o);
-}
+async function resumePay(orderId,productId){const p=products.find(x=>String(x.id)===String(productId));if(!p){showToast('产品信息不存在');return;}const {data:o}=await sb.from('orders').select('*').eq('id',orderId).single();if(!o){showToast('订单不存在');return;}closeModal('myModal');showPayModal(p,o);}
 function showContact(){showToast('联系方式：'+(settings.contact||'请在后台设置联系方式'));}
 function toggleFaq(btn){const item=btn.parentElement;const ans=item.querySelector('.faq-a');const open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}}
 function openModalEl(id){document.getElementById(id).classList.add('show');document.body.style.overflow='hidden';}
