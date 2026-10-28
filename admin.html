@@ -8,113 +8,116 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
 a{color:inherit;text-decoration:none}.container{max-width:1000px;margin:0 auto;padding:0 14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;border:none;cursor:pointer;font-family:inherit;font-weight:800;border-radius:99px;font-size:13px;padding:9px 15px;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-family:inherit;font-weight:700;border-radius:8px;font-size:13px;padding:8px 14px;white-space:nowrap}
 .btn-accent{background:var(--accent);color:#000}.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}.btn.sm{padding:6px 11px;font-size:12px}
-input,select,textarea{width:100%;padding:9px 11px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}.btn.sm{padding:5px 10px;font-size:12px}
+input,select,textarea{width:100%;padding:9px 11px;border-radius:7px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-label{display:block;font-size:12px;color:var(--muted);margin:11px 0 5px;font-weight:700}
+input[type=checkbox]{width:auto}
+label{display:block;font-size:12px;color:var(--muted);margin:11px 0 5px}
 textarea{min-height:70px;resize:vertical}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:11px 20px;border-radius:99px;font-weight:800;font-size:13px;z-index:999;transition:.3s;max-width:90vw;text-align:center}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:11px 20px;border-radius:8px;font-weight:700;font-size:13px;z-index:999;transition:.3s;max-width:90vw;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 #loginView{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
-.login-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px 22px;width:100%;max-width:360px}
-.login-card h1{font-size:18px;font-weight:900;margin-bottom:4px}
-.login-card p{color:var(--muted);font-size:12px;margin-bottom:16px}
+.login-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 22px;width:100%;max-width:350px}
+.login-card h1{font-size:17px;font-weight:700;margin-bottom:16px}
 #panelView{display:none;padding-bottom:50px}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:11px 0}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.95);border-bottom:1px solid var(--line);padding:11px 0}
 .topbar .inner{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:7px;font-weight:900;font-size:15px}
-.mark{width:26px;height:26px;display:grid;place-items:center;background:var(--accent);color:#000;border-radius:7px;font-size:13px}
-.who{font-size:11.5px;color:var(--muted)}
+.brand{font-weight:700;font-size:15px}
+.who{font-size:12px;color:var(--muted)}
 .tabs{display:flex;gap:5px;overflow-x:auto;padding:12px 0;border-bottom:1px solid var(--line)}
-.tab{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tab{padding:7px 14px;border-radius:7px;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
 .tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
 main{padding:16px 0}.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.bar h3{font-size:17px;font-weight:900}
+.bar h3{font-size:16px;font-weight:700}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
-.sc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px}
-.sc .n{font-size:25px;font-weight:900;margin-bottom:3px}.sc .n.a{color:var(--accent)}
-.sc .l{font-size:12px;color:var(--muted)}
-.plist{display:flex;flex-direction:column;gap:9px}
-.prow{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:11px}
-.pc{width:50px;height:50px;border-radius:8px;display:grid;place-items:center;font-weight:900;font-size:12px;flex-shrink:0;color:#fff;overflow:hidden;background-size:cover;background-position:center}
-.pi{flex:1;min-width:0}.pt{font-weight:800;font-size:13.5px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:14px}
+.sc .n{font-size:24px;font-weight:700}.sc .n.a{color:var(--accent)}
+.sc .l{font-size:12px;color:var(--muted);margin-top:2px}
+.plist{display:flex;flex-direction:column;gap:8px}
+.prow{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px}
+.pc{width:46px;height:46px;border-radius:6px;display:grid;place-items:center;font-weight:700;font-size:11px;flex-shrink:0;color:#fff;overflow:hidden;background-size:cover;background-position:center}
+.pi{flex:1;min-width:0}.pt{font-weight:600;font-size:13.5px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pm{font-size:11px;color:var(--muted);margin-top:2px}
 .empty{text-align:center;color:var(--muted);padding:36px 0;font-size:13px}
-.oi{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px;margin-bottom:9px}
-.oh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
-.ot{font-weight:800;font-size:13.5px}.om{font-size:11.5px;color:var(--muted);line-height:1.7}
-.oa{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
-.st{font-size:10.5px;padding:3px 9px;border-radius:99px;font-weight:800;white-space:nowrap}
+.oi{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:8px}
+.oh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.ot{font-weight:600;font-size:13.5px}.om{font-size:11.5px;color:var(--muted);line-height:1.7}
+.oa{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.st{font-size:10.5px;padding:2px 8px;border-radius:5px;font-weight:600;white-space:nowrap}
 .st-pending{background:rgba(255,180,0,.15);color:#ffb400}.st-submitted{background:rgba(80,140,255,.15);color:#6f9dff}
 .st-paid{background:rgba(200,246,46,.15);color:#c8f62e}.st-cancelled{background:rgba(255,255,255,.08);color:var(--muted)}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:15px;margin-bottom:11px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .cr{display:flex;gap:9px;align-items:center}
 .cr input[type=color]{width:50px;height:40px;padding:3px;flex-shrink:0}
-.pv{width:100%;max-width:240px;border-radius:7px;margin-top:7px;display:none;border:1px solid var(--line)}
-.cp{width:110px;height:72px;object-fit:cover;border-radius:7px;margin-top:6px;display:none;border:1px solid var(--line)}
-.qp{display:flex;gap:14px;flex-wrap:wrap;margin-top:9px}.qp img{width:90px;height:90px;object-fit:contain;background:#fff;border-radius:7px;padding:4px}
+.pv{width:100%;max-width:220px;border-radius:6px;margin-top:7px;display:none;border:1px solid var(--line)}
+.cp{width:110px;height:72px;object-fit:cover;border-radius:6px;margin-top:6px;display:none;border:1px solid var(--line)}
+.imgs-prev{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.imgs-prev img{width:56px;height:56px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.qp{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}.qp img{width:90px;height:90px;object-fit:contain;background:#fff;border-radius:6px;padding:4px}
 .hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.55}
 .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:14px;opacity:0;pointer-events:none;transition:.25s}
 .modal.show{opacity:1;pointer-events:auto}
-.mb{position:absolute;inset:0;background:rgba(0,0,0,.82)}
-.mbox{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:20px}
-.mbox h3{font-size:17px;font-weight:900;margin-bottom:6px}
-.mc{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
+.mb{position:absolute;inset:0;background:rgba(0,0,0,.85)}
+.mbox{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:20px}
+.mbox h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.mc{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
 .mc:hover{background:var(--accent);color:#000}
 @media(max-width:560px){.g2{grid-template-columns:1fr}.sg{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div id="loginView"><div class="login-card">
-<h1>✳ 管理后台</h1><p>仅限管理员登录</p>
-<label>邮箱</label><input type="email" id="loginEmail" placeholder="your@email.com">
+<h1>管理后台</h1>
+<label>邮箱</label><input type="email" id="loginEmail">
 <label>密码</label><input type="password" id="loginPass">
-<button class="btn btn-accent" style="width:100%;margin-top:16px;padding:12px" onclick="doLogin()">登录后台</button>
-<div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)"><a href="index.html" style="color:var(--accent)">← 返回前台</a></div>
+<button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="doLogin()">登录</button>
+<div style="text-align:center;margin-top:12px;font-size:12px"><a href="index.html" style="color:var(--muted)">返回前台</a></div>
 </div></div>
 
 <div id="panelView">
 <div class="topbar"><div class="container inner">
-<div class="logo"><span class="mark">✳</span> 管理后台</div>
-<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap"><span class="who" id="whoEmail"></span><a href="index.html" target="_blank" class="btn btn-ghost sm">看前台 ↗</a><button class="btn btn-ghost sm" onclick="logout()">退出</button></div>
+<div class="brand">管理后台</div>
+<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap"><span class="who" id="whoEmail"></span><a href="index.html" target="_blank" class="btn btn-ghost sm">前台</a><button class="btn btn-ghost sm" onclick="logout()">退出</button></div>
 </div></div>
 <div class="container">
 <div class="tabs">
 <button class="tab active" data-tab="overview" onclick="switchTab('overview')">概览</button>
-<button class="tab" data-tab="products" onclick="switchTab('products')">产品管理</button>
-<button class="tab" data-tab="orders" onclick="switchTab('orders')">订单管理</button>
-<button class="tab" data-tab="settings" onclick="switchTab('settings')">站点设置</button>
+<button class="tab" data-tab="products" onclick="switchTab('products')">产品</button>
+<button class="tab" data-tab="orders" onclick="switchTab('orders')">订单</button>
+<button class="tab" data-tab="settings" onclick="switchTab('settings')">设置</button>
 </div>
 <main id="tabContent"></main>
 </div></div>
 
 <div class="modal" id="pModal" onclick="if(event.target===this||event.target.classList.contains('mb'))closePF()">
 <div class="mb"></div><div class="mbox">
-<button class="mc" onclick="closePF()">✕</button>
+<button class="mc" onclick="closePF()">X</button>
 <h3 id="pTitle">新增产品</h3>
-<label>产品名称 *</label><input id="fTitle">
+<label>产品名称</label><input id="fTitle">
 <div class="g2">
 <div><label>分类</label><select id="fCategory"><option>预设</option><option>工程文件</option><option>模板</option><option>调色LUT</option><option>转场</option></select></div>
-<div><label>状态</label><select id="fStatus"><option value="published">已上架</option><option value="hidden">已下架</option></select></div>
+<div><label>状态</label><select id="fStatus"><option value="published">上架</option><option value="hidden">下架</option></select></div>
 </div>
 <div class="g2">
 <div><label>价格（0=免费）</label><input id="fPrice" type="number" min="0" step="0.01" value="0"></div>
-<div><label>原价（可选）</label><input id="fOldPrice" type="number" min="0" step="0.01"></div>
+<div><label>原价</label><input id="fOldPrice" type="number" min="0" step="0.01"></div>
 </div>
-<label>封面图片</label><input type="file" id="fCover" accept="image/*" style="padding:8px">
+<label>产品图片（可多选，前台可切换查看）</label><input type="file" id="fImages" accept="image/*" multiple style="padding:7px">
+<div class="imgs-prev" id="imgsPrev"></div>
+<div class="hint" id="imgHint">支持一次选多张；第一张作为封面</div>
+<label>单张封面（可选，旧方式）</label><input type="file" id="fCover" accept="image/*" style="padding:7px">
 <img id="coverPrev" class="cp">
-<div class="hint">不传封面则用颜色+大字</div>
 <div class="g2">
-<div><label>封面大字</label><input id="fGlyph" placeholder="C'MON"></div>
-<div><label>封面主色</label><input id="fColor" type="color" value="#1b1b1e" style="height:40px;padding:3px"></div>
+<div><label>封面大字（无图时显示）</label><input id="fGlyph"></div>
+<div><label>封面颜色（无图时）</label><input id="fColor" type="color" value="#1b1b1e" style="height:40px;padding:3px"></div>
 </div>
 <label>产品介绍</label><textarea id="fDesc"></textarea>
-<label>预设文件</label><input type="file" id="fFile" style="padding:8px">
+<label>预设文件</label><input type="file" id="fFile" style="padding:7px">
 <div class="hint" id="fFileInfo"></div>
-<button class="btn btn-accent" style="width:100%;margin-top:16px;padding:12px" onclick="saveProduct()" id="saveBtn">保存产品</button>
+<button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="saveProduct()" id="saveBtn">保存</button>
 </div></div>
 
 <div class="toast" id="toast"></div>
@@ -125,181 +128,132 @@ const sb=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
 const ADMIN=(window.ADMIN_EMAIL||'').toLowerCase();
 let currentUser=null,products=[],orders=[],profilesMap={},prodMap={},settings={},editingId=null,curTab='overview';
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2800);}
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2500);}
 const openM=id=>document.getElementById(id).classList.add('show');
 const closeM=id=>document.getElementById(id).classList.remove('show');
 
+const TEXT_FIELDS=[
+['site_name','店铺名称','text'],['site_tagline','副标题','text'],['announcement','顶部公告（留空不显示）','text'],
+['badge_text','首屏徽章文字','text'],['hero_title','首屏大标题（换行，最后一行变色）','textarea'],['hero_desc','首屏介绍文案','textarea'],
+['btn_browse','主按钮文字','text'],['btn_free','次按钮文字','text'],
+['stat_creators','统计1数字','text'],['stat_label1','统计1标签','text'],['stat_label2','统计2标签','text'],['stat_rating','统计3数字','text'],['stat_label3','统计3标签','text'],
+['marquee_items','跑马灯文字（逗号分隔）','textarea'],
+['products_title','产品区标题','text'],['products_sub','产品区副标题','text'],['search_placeholder','搜索框提示文字','text'],
+['perk1_icon','卖点1图标','text'],['perk1_title','卖点1标题','text'],['perk1_desc','卖点1描述','text'],
+['perk2_icon','卖点2图标','text'],['perk2_title','卖点2标题','text'],['perk2_desc','卖点2描述','text'],
+['perk3_icon','卖点3图标','text'],['perk3_title','卖点3标题','text'],['perk3_desc','卖点3描述','text'],
+['perk4_icon','卖点4图标','text'],['perk4_title','卖点4标题','text'],['perk4_desc','卖点4描述','text'],
+['rank_title','排行榜标题','text'],['faq_title','FAQ标题','text'],['faq_sub','FAQ副标题','text'],['faq_text','FAQ内容（每行：问题|答案）','textarea'],
+['footer_about','页脚简介','textarea'],['copyright_text','版权右侧文字','text']
+];
+const TOGGLE_FIELDS=[
+['badge_show','显示首屏徽章'],['stats_show','显示统计数字'],['marquee_show','显示跑马灯'],
+['perks_show','显示卖点区'],['rank_show','显示排行榜'],['faq_show','显示常见问题']
+];
+
 (async()=>{const {data:{session}}=await sb.auth.getSession();currentUser=session?.user||null;sb.auth.onAuthStateChange((e,s)=>{currentUser=s?.user||null;evaluate();});evaluate();})();
 function evaluate(){const ok=currentUser&&(currentUser.email||'').toLowerCase()===ADMIN;document.getElementById('loginView').style.display=ok?'none':'flex';document.getElementById('panelView').style.display=ok?'block':'none';if(ok){document.getElementById('whoEmail').textContent=currentUser.email;if(!products.length)loadAll();}}
-async function doLogin(){const email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPass').value.trim();if(!email||!pass){toast('请输入邮箱密码');return;}const {error}=await sb.auth.signInWithPassword({email,password:pass});if(error){toast('登录失败：'+error.message);return;}if(email.toLowerCase()!==ADMIN){toast('不是管理员账号');await sb.auth.signOut();return;}toast('登录成功 ✅');}
+async function doLogin(){const email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPass').value.trim();if(!email||!pass){toast('请输入邮箱密码');return;}const {error}=await sb.auth.signInWithPassword({email,password:pass});if(error){toast('登录失败：'+error.message);return;}if(email.toLowerCase()!==ADMIN){toast('不是管理员账号');await sb.auth.signOut();return;}toast('登录成功');}
 async function logout(){await sb.auth.signOut();toast('已退出');}
-
-async function loadAll(){
-const [s,p,o,pr]=await Promise.all([sb.from('settings').select('*'),sb.from('products').select('*').order('created_at',{ascending:false}),sb.from('orders').select('*').order('created_at',{ascending:false}),sb.from('profiles').select('*')]);
-settings={};(s.data||[]).forEach(r=>settings[r.key]=r.value);
-products=p.data||[];orders=o.data||[];
-profilesMap={};(pr.data||[]).forEach(r=>profilesMap[r.id]=r.email);
-prodMap={};products.forEach(x=>prodMap[x.id]=x);
-renderTab();
-}
+async function loadAll(){const [s,p,o,pr]=await Promise.all([sb.from('settings').select('*'),sb.from('products').select('*').order('created_at',{ascending:false}),sb.from('orders').select('*').order('created_at',{ascending:false}),sb.from('profiles').select('*')]);settings={};(s.data||[]).forEach(r=>settings[r.key]=r.value);products=p.data||[];orders=o.data||[];profilesMap={};(pr.data||[]).forEach(r=>profilesMap[r.id]=r.email);prodMap={};products.forEach(x=>prodMap[x.id]=x);renderTab();}
 function switchTab(t){curTab=t;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));renderTab();}
 function renderTab(){({overview:renderOverview,products:renderProducts,orders:renderOrders,settings:renderSettings}[curTab]||renderOverview)();}
 
-function renderOverview(){
-const pend=orders.filter(o=>o.status==='submitted').length;
-const rev=orders.filter(o=>o.status==='paid').reduce((s,o)=>{const p=prodMap[o.product_id];return s+(p?Number(p.price)||0:0);},0);
-const dl=products.reduce((s,p)=>s+(p.downloads||0),0);
-document.getElementById('tabContent').innerHTML=`<div class="sg">
-<div class="sc"><div class="n">${products.length}</div><div class="l">产品总数</div></div>
-<div class="sc"><div class="n">${orders.length}</div><div class="l">订单总数</div></div>
-<div class="sc"><div class="n a">${pend}</div><div class="l">待确认付款</div></div>
-<div class="sc"><div class="n a">¥${rev}</div><div class="l">已收款（估）</div></div>
-<div class="sc"><div class="n">${dl}</div><div class="l">累计下载</div></div></div>
-<div class="card"><b>🚀 快速开始</b><div style="font-size:13px;color:var(--muted);line-height:1.9;margin-top:6px">1. 站点设置 → 收款码 / 主题 / Logo / 字体<br>2. 产品管理 → 新增产品（封面 + 文件）<br>3. 订单管理 → 确认收款开通下载</div></div>`;
-}
+function renderOverview(){const pend=orders.filter(o=>o.status==='submitted').length;const rev=orders.filter(o=>o.status==='paid').reduce((s,o)=>{const p=prodMap[o.product_id];return s+(p?Number(p.price)||0:0);},0);const dl=products.reduce((s,p)=>s+(p.downloads||0),0);document.getElementById('tabContent').innerHTML=`<div class="sg"><div class="sc"><div class="n">${products.length}</div><div class="l">产品</div></div><div class="sc"><div class="n">${orders.length}</div><div class="l">订单</div></div><div class="sc"><div class="n a">${pend}</div><div class="l">待确认</div></div><div class="sc"><div class="n a">¥${rev}</div><div class="l">已收款</div></div><div class="sc"><div class="n">${dl}</div><div class="l">下载</div></div></div>`;}
 
-function renderProducts(){
-let h=`<div class="bar"><h3>产品管理（${products.length}）</h3><button class="btn btn-accent" onclick="openPF()">+ 新增产品</button></div>`;
-if(!products.length)h+='<div class="empty">还没有产品</div>';
-else h+='<div class="plist">'+products.map(p=>{const bg=p.cover_url?`background-image:url('${esc(p.cover_url)}')`:`background:${esc(p.cover_color||'#1b1b1e')}`;return `<div class="prow"><div class="pc" style="${bg}">${p.cover_url?'':esc(p.glyph||'AE')}</div><div class="pi"><div class="pt">${esc(p.title)}</div><div class="pm">${esc(p.category||'-')} · ${Number(p.price)===0?'免费':'¥'+Number(p.price)} · ${p.status==='published'?'<span style="color:var(--accent)">已上架</span>':'<span style="color:#ffb400">已下架</span>'}</div><div class="pm">${p.file_path?'📎 文件已上传':'⚠️ 未上传文件'} · ⤓ ${p.downloads||0}</div></div><div style="display:flex;gap:5px;flex-direction:column"><button class="btn btn-ghost sm" onclick="openPF(${p.id})">编辑</button><button class="btn btn-ghost sm" style="color:#ff6b6b" onclick="delProduct(${p.id})">删除</button></div></div>`;}).join('')+'</div>';
-document.getElementById('tabContent').innerHTML=h;
-}
+function renderProducts(){let h=`<div class="bar"><h3>产品 ${products.length}</h3><button class="btn btn-accent" onclick="openPF()">新增</button></div>`;if(!products.length)h+='<div class="empty">暂无产品</div>';else h+='<div class="plist">'+products.map(p=>{const bg=p.cover_url?`background-image:url('${esc(p.cover_url)}')`:`background:${esc(p.cover_color||'#1b1b1e')}`;return `<div class="prow"><div class="pc" style="${bg}">${p.cover_url?'':esc(p.glyph||'AE')}</div><div class="pi"><div class="pt">${esc(p.title)}</div><div class="pm">${esc(p.category||'-')} / ${Number(p.price)===0?'免费':'¥'+Number(p.price)} / ${p.status==='published'?'上架':'下架'}</div><div class="pm">${p.file_path?'文件已上传':'无文件'} / 下载 ${p.downloads||0}</div></div><div style="display:flex;gap:5px;flex-direction:column"><button class="btn btn-ghost sm" onclick="openPF(${p.id})">编辑</button><button class="btn btn-ghost sm" onclick="delProduct(${p.id})">删除</button></div></div>`;}).join('')+'</div>';document.getElementById('tabContent').innerHTML=h;}
 
 function openPF(id){
-editingId=id||null;const p=id?products.find(x=>x.id===id):null;
-document.getElementById('pTitle').textContent=id?'编辑产品':'新增产品';
-document.getElementById('fTitle').value=p?.title||'';
-document.getElementById('fCategory').value=p?.category||'预设';
-document.getElementById('fStatus').value=p?.status||'published';
-document.getElementById('fPrice').value=p?.price??0;
-document.getElementById('fOldPrice').value=p?.old_price??'';
-document.getElementById('fGlyph').value=p?.glyph||'';
-document.getElementById('fColor').value=p?.cover_color||'#1b1b1e';
-document.getElementById('fDesc').value=p?.description||'';
-document.getElementById('fFile').value='';document.getElementById('fCover').value='';
-const cp=document.getElementById('coverPrev');
-if(p?.cover_url){cp.src=p.cover_url;cp.style.display='block';}else{cp.style.display='none';cp.src='';}
-document.getElementById('fFileInfo').textContent=p?.file_path?('当前文件：'+p.file_path):'未上传文件，买家付款确认后可下载';
-openM('pModal');
+ editingId=id||null;const p=id?products.find(x=>x.id===id):null;
+ document.getElementById('pTitle').textContent=id?'编辑产品':'新增产品';
+ document.getElementById('fTitle').value=p?.title||'';
+ document.getElementById('fCategory').value=p?.category||'预设';
+ document.getElementById('fStatus').value=p?.status||'published';
+ document.getElementById('fPrice').value=p?.price??0;
+ document.getElementById('fOldPrice').value=p?.old_price??'';
+ document.getElementById('fGlyph').value=p?.glyph||'';
+ document.getElementById('fColor').value=p?.cover_color||'#1b1b1e';
+ document.getElementById('fDesc').value=p?.description||'';
+ document.getElementById('fFile').value='';document.getElementById('fCover').value='';document.getElementById('fImages').value='';
+ const cp=document.getElementById('coverPrev');if(p?.cover_url){cp.src=p.cover_url;cp.style.display='block';}else{cp.style.display='none';cp.src='';}
+ let imgs=[];try{imgs=JSON.parse(p?.images||'[]');}catch(e){}
+ document.getElementById('imgsPrev').innerHTML=imgs.map(u=>`<img src="${esc(u)}">`).join('');
+ document.getElementById('imgHint').textContent=imgs.length?('已上传 '+imgs.length+' 张图，重新选择会替换'):'支持一次选多张；第一张作为封面';
+ document.getElementById('fFileInfo').textContent=p?.file_path?('当前文件：'+p.file_path):'未上传文件';
+ openM('pModal');
 }
 function closePF(){closeM('pModal');editingId=null;}
 document.getElementById('fCover').addEventListener('change',function(){const cp=document.getElementById('coverPrev');if(this.files[0]){cp.src=URL.createObjectURL(this.files[0]);cp.style.display='block';}});
+document.getElementById('fImages').addEventListener('change',function(){document.getElementById('imgsPrev').innerHTML=[...this.files].map(f=>`<img src="${URL.createObjectURL(f)}">`).join('');document.getElementById('imgHint').textContent='已选择 '+this.files.length+' 张（保存后上传）';});
 
 async function saveProduct(){
-const title=document.getElementById('fTitle').value.trim();if(!title){toast('请填写产品名称');return;}
-const btn=document.getElementById('saveBtn'),old=btn.textContent;btn.textContent='保存中…';btn.disabled=true;
-try{
-const payload={title,category:document.getElementById('fCategory').value,price:Number(document.getElementById('fPrice').value)||0,old_price:document.getElementById('fOldPrice').value?Number(document.getElementById('fOldPrice').value):null,glyph:document.getElementById('fGlyph').value.trim()||'AE',cover_color:document.getElementById('fColor').value,description:document.getElementById('fDesc').value,status:document.getElementById('fStatus').value};
-let id=editingId;
-if(id){const {error}=await sb.from('products').update(payload).eq('id',id);if(error)throw error;}
-else{const {data,error}=await sb.from('products').insert(payload).select().single();if(error)throw error;id=data.id;}
-const ci=document.getElementById('fCover');
-if(ci.files&&ci.files[0]){toast('封面上传中…');const f=ci.files[0],path='cover_'+id+'_'+Date.now()+'.'+f.name.split('.').pop();const {error:ce}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(ce)throw new Error('封面上传失败：'+ce.message);const {data:cu}=sb.storage.from('covers').getPublicUrl(path);const {error:ue}=await sb.from('products').update({cover_url:cu.publicUrl}).eq('id',id);if(ue)throw new Error('封面保存失败（请先跑升级 SQL 加 cover_url 字段）');}
-const fi=document.getElementById('fFile');
-if(fi.files&&fi.files[0]){toast('文件上传中…');const f=fi.files[0],path=id+'/'+f.name;const {error:fe}=await sb.storage.from('files').upload(path,f,{upsert:true});if(fe)throw new Error('文件上传失败：'+fe.message);const {error:pe}=await sb.from('products').update({file_path:path}).eq('id',id);if(pe)throw pe;}
-toast('已保存 ✅');closePF();await loadAll();
-}catch(e){toast(e.message||'保存失败');}finally{btn.textContent=old;btn.disabled=false;}
+ const title=document.getElementById('fTitle').value.trim();if(!title){toast('请填写产品名称');return;}
+ const btn=document.getElementById('saveBtn'),old=btn.textContent;btn.textContent='保存中...';btn.disabled=true;
+ try{
+  const payload={title,category:document.getElementById('fCategory').value,price:Number(document.getElementById('fPrice').value)||0,old_price:document.getElementById('fOldPrice').value?Number(document.getElementById('fOldPrice').value):null,glyph:document.getElementById('fGlyph').value.trim()||'AE',cover_color:document.getElementById('fColor').value,description:document.getElementById('fDesc').value,status:document.getElementById('fStatus').value};
+  let id=editingId;
+  if(id){const {error}=await sb.from('products').update(payload).eq('id',id);if(error)throw error;}
+  else{const {data,error}=await sb.from('products').insert(payload).select().single();if(error)throw error;id=data.id;}
+  const ii=document.getElementById('fImages');
+  if(ii.files&&ii.files.length){
+   toast('上传图片中（0/'+ii.files.length+'）...');
+   const urls=[];
+   let n=0;
+   for(const f of ii.files){
+    const path='img_'+id+'_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+f.name.split('.').pop();
+    const {error:ie}=await sb.storage.from('covers').upload(path,f,{upsert:true});
+    if(!ie){const {data:pu}=sb.storage.from('covers').getPublicUrl(path);urls.push(pu.publicUrl);}
+    n++;toast('上传图片中（'+n+'/'+ii.files.length+'）...');
+   }
+   if(urls.length){
+    const {error:ime}=await sb.from('products').update({images:JSON.stringify(urls),cover_url:urls[0]}).eq('id',id);
+    if(ime)throw new Error('图片保存失败，请先跑升级 SQL 加 images 字段');
+   }
+  }
+  const ci=document.getElementById('fCover');
+  if(ci.files&&ci.files[0]){const f=ci.files[0],path='cover_'+id+'_'+Date.now()+'.'+f.name.split('.').pop();const {error:ce}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(ce)throw new Error('封面上传失败：'+ce.message);const {data:cu}=sb.storage.from('covers').getPublicUrl(path);const {error:ue}=await sb.from('products').update({cover_url:cu.publicUrl}).eq('id',id);if(ue)throw new Error('封面保存失败，请先跑升级 SQL');}
+  const fi=document.getElementById('fFile');
+  if(fi.files&&fi.files[0]){const f=fi.files[0],path=id+'/'+f.name;const {error:fe}=await sb.storage.from('files').upload(path,f,{upsert:true});if(fe)throw new Error('文件上传失败：'+fe.message);const {error:pe}=await sb.from('products').update({file_path:path}).eq('id',id);if(pe)throw pe;}
+  toast('已保存');closePF();await loadAll();
+ }catch(e){toast(e.message||'保存失败');}finally{btn.textContent=old;btn.disabled=false;}
 }
 async function delProduct(id){if(!confirm('确定删除这个产品吗？'))return;const {error}=await sb.from('products').delete().eq('id',id);if(error){toast('删除失败：'+error.message);return;}toast('已删除');await loadAll();}
 
-function renderOrders(){
-const T={pending:'待付款',submitted:'待确认',paid:'已付款',cancelled:'已取消'},C={pending:'st-pending',submitted:'st-submitted',paid:'st-paid',cancelled:'st-cancelled'};
-let h=`<div class="bar"><h3>订单管理（${orders.length}）</h3></div>`;
-if(!orders.length)h+='<div class="empty">还没有订单</div>';
-else h+=orders.map(o=>{const p=prodMap[o.product_id],title=p?p.title:'（产品已删除）',price=p?Number(p.price)||0:0,email=profilesMap[o.user_id]||(o.user_id||'').slice(0,8)+'…';let a='';if(o.status==='submitted')a=`<button class="btn btn-accent sm" onclick="setOrder(${o.id},'paid')">✓ 确认收款</button><button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消</button>`;else if(o.status==='pending')a=`<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消订单</button>`;else if(o.status==='paid')a=`<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')" style="color:#ff6b6b">撤销</button>`;return `<div class="oi"><div class="oh"><span class="ot">${esc(title)}</span><span class="st ${C[o.status]||''}">${T[o.status]||o.status}</span></div><div class="om">订单 #${o.id} · ¥${price}<br>买家：${esc(email)}<br>${new Date(o.created_at).toLocaleString('zh-CN')}</div>${a?`<div class="oa">${a}</div>`:''}</div>`;}).join('');
-document.getElementById('tabContent').innerHTML=h;
-}
-async function setOrder(id,status){const {error}=await sb.from('orders').update({status}).eq('id',id);if(error){toast('操作失败：'+error.message);return;}toast(status==='paid'?'已确认收款 ✅':'已更新');await loadAll();}
+function renderOrders(){const T={pending:'待付款',submitted:'待确认',paid:'已付款',cancelled:'已取消'},C={pending:'st-pending',submitted:'st-submitted',paid:'st-paid',cancelled:'st-cancelled'};let h=`<div class="bar"><h3>订单 ${orders.length}</h3></div>`;if(!orders.length)h+='<div class="empty">暂无订单</div>';else h+=orders.map(o=>{const p=prodMap[o.product_id],title=p?p.title:'产品已删除',price=p?Number(p.price)||0:0,email=profilesMap[o.user_id]||(o.user_id||'').slice(0,8)+'...';let a='';if(o.status==='submitted')a=`<button class="btn btn-accent sm" onclick="setOrder(${o.id},'paid')">确认收款</button><button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消</button>`;else if(o.status==='pending')a=`<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消</button>`;else if(o.status==='paid')a=`<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">撤销</button>`;return `<div class="oi"><div class="oh"><span class="ot">${esc(title)}</span><span class="st ${C[o.status]||''}">${T[o.status]||o.status}</span></div><div class="om">#${o.id} / ¥${price}<br>买家：${esc(email)}<br>${new Date(o.created_at).toLocaleString('zh-CN')}</div>${a?`<div class="oa">${a}</div>`:''}</div>`;}).join('');document.getElementById('tabContent').innerHTML=h;}
+async function setOrder(id,status){const {error}=await sb.from('orders').update({status}).eq('id',id);if(error){toast('操作失败：'+error.message);return;}toast('已更新');await loadAll();}
 
-const FONTS=[['system','系统默认'],['heiti','黑体'],['songti','宋体'],['kaiti','楷体'],['yuanti','圆体']];
 function renderSettings(){
-const qw=settings.pay_qr_wechat||'',qa=settings.pay_qr_alipay||'';
-const fs=FONTS.map(([v,t])=>`<option value="${v}"${settings.theme_font===v?' selected':''}>${t}</option>`).join('');
-document.getElementById('tabContent').innerHTML=`
-<div class="bar"><h3>站点设置</h3></div>
-<div class="card"><b>基础信息</b>
-<label>店铺名称</label><input id="sName" value="${esc(settings.site_name||'')}">
-<label>副标题</label><input id="sTag" value="${esc(settings.site_tagline||'')}">
-<label>首屏大标题（换行，最后一行描边）</label><textarea id="sHero">${esc(settings.hero_title||"AE预设.\n模板.\n工程文件.")}</textarea>
-<label>首屏介绍</label><textarea id="sDesc">${esc(settings.hero_desc||'')}</textarea>
-<label>顶部公告</label><input id="sAnn" value="${esc(settings.announcement||'')}">
-<label>联系方式/付款说明</label><input id="sContact" value="${esc(settings.contact||'')}">
-</div>
-<div class="card"><b>🎨 主题外观</b>
-<label>主色调</label><div class="cr"><input type="color" id="sAccent" value="${esc(settings.theme_accent||'#c8f62e')}"><span class="hint" style="margin:0">${esc(settings.theme_accent||'#c8f62e')}</span></div>
-<label>背景色</label><div class="cr"><input type="color" id="sBg" value="${esc(settings.theme_bg||'#0b0b0c')}"><span class="hint" style="margin:0">${esc(settings.theme_bg||'#0b0b0c')}</span></div>
-<label>文字颜色</label><div class="cr"><input type="color" id="sText" value="${esc(settings.theme_text||'#f4f4f2')}"><span class="hint" style="margin:0">${esc(settings.theme_text||'#f4f4f2')}</span></div>
-<label>字体</label><select id="sFont">${fs}</select>
-</div>
-<div class="card"><b>🖼 网站图片 & 字体文件</b>
-<label>Logo 图片</label><input type="file" accept="image/*" onchange="uploadAsset('logo',this)" style="padding:7px">
-${settings.logo_url?`<img src="${esc(settings.logo_url)}" class="pv" style="display:block">`:''}
-<label>首页大图</label><input type="file" accept="image/*" onchange="uploadAsset('hero',this)" style="padding:7px">
-${settings.hero_bg_url?`<img src="${esc(settings.hero_bg_url)}" class="pv" style="display:block">`:''}
-<label>网站图标 favicon</label><input type="file" accept="image/*" onchange="uploadAsset('favicon',this)" style="padding:7px">
-<label>自定义字体文件（woff2/ttf/otf）</label><input type="file" accept=".woff2,.woff,.ttf,.otf" onchange="uploadAsset('font',this)" style="padding:7px">
-<div class="hint">${settings.font_url?'✅ 已上传自定义字体':'未上传，使用上方选择的系统字体'}</div>
-</div>
-<div class="card"><b>📊 统计数字 & 页脚</b>
-<label>「剪辑师在用」数字</label><input id="sStatC" value="${esc(settings.stat_creators||'12K+')}">
-<label>「平均评分」数字</label><input id="sStatR" value="${esc(settings.stat_rating||'4.9')}">
-<label>页脚简介</label><textarea id="sFooter">${esc(settings.footer_about||'')}</textarea>
-</div>
-<div class="card"><b>❓ 常见问题</b><div class="hint" style="margin-bottom:7px">每行一条：问题|答案</div><textarea id="sFaq" style="min-height:130px">${esc(settings.faq_text||'')}</textarea></div>
-<div class="card"><b>💳 收款码</b>
-<label>微信收款码</label><input type="file" id="qrW" accept="image/*" onchange="uploadQR('wechat')" style="padding:7px">
-<label>支付宝收款码</label><input type="file" id="qrA" accept="image/*" onchange="uploadQR('alipay')" style="padding:7px">
-<div class="qp">${qw?`<img src="${esc(qw)}" title="微信">`:''}${qa?`<img src="${esc(qa)}" title="支付宝">`:''}</div>
-</div>
-<div class="card"><b>💾 备份 / 恢复</b><div class="hint" style="margin-bottom:8px">导出全部设置+产品为 JSON；导入可恢复。</div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="exportData()">⬇ 导出备份</button><label class="btn btn-ghost" style="margin:0;cursor:pointer">⬆ 导入备份<input type="file" accept=".json,application/json" onchange="importData(this)" style="display:none"></label></div></div>
-<button class="btn btn-accent" style="width:100%;padding:13px" onclick="saveSettings()">保存全部设置</button>`;
+ const fh=(k,l,t)=>t==='textarea'?`<label>${l}</label><textarea id="f_${k}">${esc(settings[k]||'')}</textarea>`:`<label>${l}</label><input id="f_${k}" value="${esc(settings[k]||'')}">`;
+ const texts=TEXT_FIELDS.map(([k,l,t])=>fh(k,l,t)).join('');
+ const toggles=TOGGLE_FIELDS.map(([k,l])=>`<label style="display:flex;align-items:center;gap:8px;margin:10px 0"><input type="checkbox" id="t_${k}" ${settings[k]==='1'?'checked':''}> ${l}</label>`).join('');
+ const fs=[['system','系统默认'],['heiti','黑体'],['songti','宋体'],['kaiti','楷体'],['yuanti','圆体']].map(([v,t])=>`<option value="${v}"${settings.theme_font===v?' selected':''}>${t}</option>`).join('');
+ const qw=settings.pay_qr_wechat||'',qa=settings.pay_qr_alipay||'';
+ document.getElementById('tabContent').innerHTML=`
+ <div class="bar"><h3>站点设置</h3></div>
+ <div class="card"><b>页面区块显示开关</b><div class="hint" style="margin-bottom:6px">想显示就勾选，想隐藏就取消</div>${toggles}</div>
+ <div class="card"><b>页面文字（全部可改）</b>${texts}</div>
+ <div class="card"><b>主题外观</b><label>主色调</label><div class="cr"><input type="color" id="sAccent" value="${esc(settings.theme_accent||'#c8f62e')}"></div><label>背景色</label><div class="cr"><input type="color" id="sBg" value="${esc(settings.theme_bg||'#0b0b0c')}"></div><label>文字颜色</label><div class="cr"><input type="color" id="sText" value="${esc(settings.theme_text||'#f4f4f2')}"></div><label>字体</label><select id="sFont">${fs}</select></div>
+ <div class="card"><b>图片和字体文件</b><label>Logo</label><input type="file" accept="image/*" onchange="uploadAsset('logo',this)" style="padding:7px">${settings.logo_url?`<img src="${esc(settings.logo_url)}" class="pv" style="display:block">`:''}<label>首页大图</label><input type="file" accept="image/*" onchange="uploadAsset('hero',this)" style="padding:7px">${settings.hero_bg_url?`<img src="${esc(settings.hero_bg_url)}" class="pv" style="display:block">`:''}<label>网站图标</label><input type="file" accept="image/*" onchange="uploadAsset('favicon',this)" style="padding:7px"><label>字体文件</label><input type="file" accept=".woff2,.woff,.ttf,.otf" onchange="uploadAsset('font',this)" style="padding:7px"><div class="hint">${settings.font_url?'已上传自定义字体':'未上传自定义字体'}</div></div>
+ <div class="card"><b>收款码</b><label>微信</label><input type="file" id="qrW" accept="image/*" onchange="uploadQR('wechat')" style="padding:7px"><label>支付宝</label><input type="file" id="qrA" accept="image/*" onchange="uploadQR('alipay')" style="padding:7px"><div class="qp">${qw?`<img src="${esc(qw)}">`:''}${qa?`<img src="${esc(qa)}">`:''}</div></div>
+ <div class="card"><b>备份</b><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn btn-ghost" onclick="exportData()">导出数据</button><label class="btn btn-ghost" style="margin:0;cursor:pointer">导入数据<input type="file" accept=".json,application/json" onchange="importData(this)" style="display:none"></label></div></div>
+ <button class="btn btn-accent" style="width:100%;padding:12px" onclick="saveSettings()">保存全部设置</button>`;
 }
-
 async function saveSettings(){
-const rows=[['site_name','sName'],['site_tagline','sTag'],['hero_title','sHero'],['hero_desc','sDesc'],['announcement','sAnn'],['contact','sContact'],['theme_accent','sAccent'],['theme_bg','sBg'],['theme_text','sText'],['theme_font','sFont'],['stat_creators','sStatC'],['stat_rating','sStatR'],['footer_about','sFooter'],['faq_text','sFaq']].map(([k,id])=>({key:k,value:document.getElementById(id).value}));
-const {error}=await sb.from('settings').upsert(rows);
-if(error){toast('保存失败：'+error.message);return;}
-toast('设置已保存 ✅ 去前台刷新看看');await loadAll();
+ const rows=[];
+ TEXT_FIELDS.forEach(([k])=>{const el=document.getElementById('f_'+k);if(el)rows.push({key:k,value:el.value});});
+ TOGGLE_FIELDS.forEach(([k])=>{const el=document.getElementById('t_'+k);if(el)rows.push({key:k,value:el.checked?'1':'0'});});
+ rows.push({key:'theme_accent',value:document.getElementById('sAccent').value});
+ rows.push({key:'theme_bg',value:document.getElementById('sBg').value});
+ rows.push({key:'theme_text',value:document.getElementById('sText').value});
+ rows.push({key:'theme_font',value:document.getElementById('sFont').value});
+ const {error}=await sb.from('settings').upsert(rows);
+ if(error){toast('保存失败：'+error.message);return;}
+ toast('已保存');await loadAll();
 }
-
-async function uploadQR(type){
-const input=document.getElementById(type==='wechat'?'qrW':'qrA'),f=input.files[0];if(!f)return;
-toast('上传中…');const path='qr_'+type+'_'+Date.now()+'.'+f.name.split('.').pop();
-const {error}=await sb.storage.from('covers').upload(path,f,{upsert:true});
-if(error){toast('上传失败：'+error.message);return;}
-const {data}=sb.storage.from('covers').getPublicUrl(path);
-const key=type==='wechat'?'pay_qr_wechat':'pay_qr_alipay';
-await sb.from('settings').upsert([{key,value:data.publicUrl}]);
-settings[key]=data.publicUrl;toast('收款码已更新 ✅');renderSettings();
-}
-
-async function uploadAsset(type,input){
-const f=input.files[0];if(!f)return;
-toast('上传中…');const path=type+'_'+Date.now()+'.'+f.name.split('.').pop();
-const {error}=await sb.storage.from('covers').upload(path,f,{upsert:true});
-if(error){toast('上传失败：'+error.message);return;}
-const {data}=sb.storage.from('covers').getPublicUrl(path);
-const key={logo:'logo_url',hero:'hero_bg_url',favicon:'favicon_url',font:'font_url'}[type];
-await sb.from('settings').upsert([{key,value:data.publicUrl}]);
-settings[key]=data.publicUrl;toast('已更新 ✅');renderSettings();
-}
-
-async function exportData(){
-const [s,p]=await Promise.all([sb.from('settings').select('*'),sb.from('products').select('*')]);
-const blob=new Blob([JSON.stringify({settings:s.data||[],products:p.data||[]},null,2)],{type:'application/json'});
-const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup_'+Date.now()+'.json';document.body.appendChild(a);a.click();a.remove();toast('已导出备份 ✅');
-}
-
-async function importData(input){
-const f=input.files[0];if(!f)return;if(!confirm('导入会覆盖同名设置和产品，确定？'))return;
-try{
-const obj=JSON.parse(await f.text());
-if(obj.settings?.length)await sb.from('settings').upsert(obj.settings.map(r=>({key:r.key,value:r.value})));
-if(obj.products?.length)await sb.from('products').upsert(obj.products);
-toast('导入成功 ✅');await loadAll();
-}catch(e){toast('导入失败：'+e.message);}
-}
+async function uploadQR(type){const input=document.getElementById(type==='wechat'?'qrW':'qrA'),f=input.files[0];if(!f)return;toast('上传中...');const path='qr_'+type+'_'+Date.now()+'.'+f.name.split('.').pop();const {error}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(error){toast('上传失败：'+error.message);return;}const {data}=sb.storage.from('covers').getPublicUrl(path);const key=type==='wechat'?'pay_qr_wechat':'pay_qr_alipay';await sb.from('settings').upsert([{key,value:data.publicUrl}]);settings[key]=data.publicUrl;toast('已更新');renderSettings();}
+async function uploadAsset(type,input){const f=input.files[0];if(!f)return;toast('上传中...');const path=type+'_'+Date.now()+'.'+f.name.split('.').pop();const {error}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(error){toast('上传失败：'+error.message);return;}const {data}=sb.storage.from('covers').getPublicUrl(path);const key={logo:'logo_url',hero:'hero_bg_url',favicon:'favicon_url',font:'font_url'}[type];await sb.from('settings').upsert([{key,value:data.publicUrl}]);settings[key]=data.publicUrl;toast('已更新');renderSettings();}
+async function exportData(){const [s,p]=await Promise.all([sb.from('settings').select('*'),sb.from('products').select('*')]);const blob=new Blob([JSON.stringify({settings:s.data||[],products:p.data||[]},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup_'+Date.now()+'.json';document.body.appendChild(a);a.click();a.remove();toast('已导出');}
+async function importData(input){const f=input.files[0];if(!f)return;if(!confirm('导入会覆盖同名数据，确定？'))return;try{const obj=JSON.parse(await f.text());if(obj.settings?.length)await sb.from('settings').upsert(obj.settings.map(r=>({key:r.key,value:r.value})));if(obj.products?.length)await sb.from('products').upsert(obj.products);toast('导入成功');await loadAll();}catch(e){toast('导入失败：'+e.message);}}
 </script>
 </body>
 </html>
