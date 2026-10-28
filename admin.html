@@ -50,7 +50,7 @@
   .stat-card .lbl{font-size:12.5px;color:var(--muted)}
   .plist{display:flex;flex-direction:column;gap:10px}
   .prow{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
-  .pcolor{width:54px;height:54px;border-radius:9px;display:grid;place-items:center;font-weight:900;font-size:13px;flex-shrink:0;color:#fff;overflow:hidden;text-align:center}
+  .pcolor{width:54px;height:54px;border-radius:9px;display:grid;place-items:center;font-weight:900;font-size:13px;flex-shrink:0;color:#fff;overflow:hidden;text-align:center;background-size:cover;background-position:center}
   .pinfo{flex:1;min-width:0}
   .ptitle{font-weight:800;font-size:14px;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .pmeta{font-size:11.5px;color:var(--muted);margin-top:2px}
@@ -70,10 +70,13 @@
   .qr-preview{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
   .qr-preview .qr-item{text-align:center;font-size:11px;color:var(--muted)}
   .qr-preview img{width:100px;height:100px;object-fit:contain;background:#fff;border-radius:8px;padding:4px;display:block;margin-bottom:4px}
+  .cover-preview{width:100px;height:70px;object-fit:cover;border-radius:8px;margin-top:6px;display:none;border:1px solid var(--line)}
+  .color-row{display:flex;gap:10px;align-items:center}
+  .color-row input[type=color]{width:52px;height:42px;padding:3px;flex-shrink:0}
   .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:.3s}
   .modal.show{opacity:1;pointer-events:auto}
   .mback{position:absolute;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
-  .mbox{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:24px}
+  .mbox{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:24px}
   .mbox h3{font-size:18px;font-weight:900;margin-bottom:8px}
   .mclose{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;font-size:15px}
   .mclose:hover{background:var(--accent);color:#000}
@@ -146,8 +149,12 @@
       <div><label>价格（0 = 免费）</label><input id="fPrice" type="number" min="0" step="0.01" value="0"></div>
       <div><label>原价（可选）</label><input id="fOldPrice" type="number" min="0" step="0.01" placeholder="留空不显示"></div>
     </div>
+    <label>封面图片（推荐上传，比例 16:9）</label>
+    <input type="file" id="fCover" accept="image/*" style="padding:8px">
+    <img id="coverPreview" class="cover-preview">
+    <div class="hint">上传的封面会显示在产品卡片上。不传则用下面的颜色 + 大字代替。</div>
     <div class="grid2">
-      <div><label>封面大字（英文更酷）</label><input id="fGlyph" placeholder="例如 C'MON"></div>
+      <div><label>封面大字（无图时显示）</label><input id="fGlyph" placeholder="例如 C'MON"></div>
       <div><label>封面主色</label><input id="fColor" type="color" value="#1b1b1e" style="height:42px;padding:4px"></div>
     </div>
     <label>产品介绍</label>
@@ -242,20 +249,21 @@ function renderTab(){
 function renderOverview(){
   const pending = orders.filter(o=>o.status==='submitted').length;
   const revenue = orders.filter(o=>o.status==='paid').reduce((s,o)=>{ const p=prodMap[o.product_id]; return s+(p?Number(p.price)||0:0); },0);
+  const totalDl = products.reduce((s,p)=>s+(p.downloads||0),0);
   document.getElementById('tabContent').innerHTML = `
     <div class="stat-grid">
       <div class="stat-card"><div class="num">${products.length}</div><div class="lbl">产品总数</div></div>
       <div class="stat-card"><div class="num">${orders.length}</div><div class="lbl">订单总数</div></div>
       <div class="stat-card"><div class="num accent">${pending}</div><div class="lbl">待确认付款</div></div>
       <div class="stat-card"><div class="num accent">¥${revenue}</div><div class="lbl">已收款（估）</div></div>
+      <div class="stat-card"><div class="num">${totalDl}</div><div class="lbl">累计下载</div></div>
     </div>
     <div class="card">
       <div style="font-weight:800;margin-bottom:8px">🚀 快速开始</div>
       <div style="font-size:13px;color:var(--muted);line-height:1.9">
-        1. 去「站点设置」上传你的微信/支付宝收款码<br>
-        2. 去「产品管理」上传第一个产品（填信息 + 选文件）<br>
-        3. 打开前台用管理员邮箱注册一个账号 → 测试购买流程<br>
-        4. 别人下单后，来「订单管理」点「确认收款」即可开通下载
+        1. 「站点设置」→ 上传收款码、改主题色/字体<br>
+        2. 「产品管理」→ 新增产品（传封面图 + 预设文件）<br>
+        3. 别人下单后，来「订单管理」点「确认收款」即可开通下载
       </div>
     </div>`;
 }
@@ -265,19 +273,24 @@ function renderProducts(){
   let html = `<div class="bar"><h3>产品管理（${products.length}）</h3><button class="btn btn-accent" onclick="openProductForm()">+ 新增产品</button></div>`;
   if(!products.length){ html += '<div class="empty">还没有产品，点右上角「新增产品」</div>'; }
   else {
-    html += '<div class="plist">' + products.map(p=>`
+    html += '<div class="plist">' + products.map(p=>{
+      const coverStyle = p.cover_url
+        ? `background-image:url('${esc(p.cover_url)}')`
+        : `background:${esc(p.cover_color||'#1b1b1e')}`;
+      return `
       <div class="prow">
-        <div class="pcolor" style="background:${esc(p.cover_color||'#1b1b1e')}">${esc(p.glyph||'AE')}</div>
+        <div class="pcolor" style="${coverStyle}">${p.cover_url?'':esc(p.glyph||'AE')}</div>
         <div class="pinfo">
           <div class="ptitle">${esc(p.title)}</div>
           <div class="pmeta">${esc(p.category||'-')} · ${Number(p.price)===0?'免费':'¥'+Number(p.price)} · ${p.status==='published'?'<span style="color:var(--accent)">已上架</span>':'<span style="color:#ffb400">已下架</span>'}</div>
-          <div class="pmeta">${p.file_path?'📎 文件已上传':'⚠️ 未上传文件'}</div>
+          <div class="pmeta">${p.file_path?'📎 文件已上传':'⚠️ 未上传文件'} · ⤓ ${p.downloads||0}</div>
         </div>
         <div style="display:flex;gap:6px;flex-direction:column">
           <button class="btn btn-ghost sm" onclick="openProductForm(${p.id})">编辑</button>
           <button class="btn btn-ghost sm" style="color:#ff6b6b" onclick="deleteProduct(${p.id})">删除</button>
         </div>
-      </div>`).join('') + '</div>';
+      </div>`;
+    }).join('') + '</div>';
   }
   c.innerHTML = html;
 }
@@ -295,10 +308,22 @@ function openProductForm(id){
   document.getElementById('fColor').value = p?.cover_color || '#1b1b1e';
   document.getElementById('fDesc').value = p?.description || '';
   document.getElementById('fFile').value = '';
+  document.getElementById('fCover').value = '';
+  const cp = document.getElementById('coverPreview');
+  if(p?.cover_url){ cp.src = p.cover_url; cp.style.display='block'; } else { cp.style.display='none'; cp.src=''; }
   document.getElementById('fFileInfo').textContent = p?.file_path ? ('当前文件：'+p.file_path+'（重新选择可覆盖）') : '未上传文件。上传后，买家付款确认即可下载。单文件建议不超过 50MB。';
   openModalEl('pModal');
 }
 function closeProductForm(){ closeModalEl('pModal'); editingId = null; }
+
+function previewCover(input){
+  const cp = document.getElementById('coverPreview');
+  if(input.files && input.files[0]){
+    cp.src = URL.createObjectURL(input.files[0]);
+    cp.style.display = 'block';
+  }
+}
+document.getElementById('fCover')?.addEventListener('change', function(){ previewCover(this); });
 
 async function saveProduct(){
   const title = document.getElementById('fTitle').value.trim();
@@ -324,6 +349,19 @@ async function saveProduct(){
       if(error) throw error;
       id = data.id;
     }
+    // 上传封面图
+    const ci = document.getElementById('fCover');
+    if(ci.files && ci.files[0]){
+      toast('封面上传中…');
+      const f = ci.files[0];
+      const path = 'cover_'+id+'_'+Date.now()+'.'+f.name.split('.').pop();
+      const { error: cErr } = await sb.storage.from('covers').upload(path, f, { upsert:true });
+      if(cErr) throw new Error('封面上传失败：'+cErr.message);
+      const { data: cData } = sb.storage.from('covers').getPublicUrl(path);
+      const { error: cuErr } = await sb.from('products').update({ cover_url: cData.publicUrl }).eq('id', id);
+      if(cuErr) throw new Error('保存封面失败（可能是数据库缺 cover_url 字段，请先跑升级 SQL）');
+    }
+    // 上传预设文件
     const fi = document.getElementById('fFile');
     if(fi.files && fi.files[0]){
       toast('文件上传中，请稍候…');
@@ -383,10 +421,13 @@ async function setOrder(id, status){
   await loadAll();
 }
 
+const FONT_OPTS = [['system','系统默认'],['heiti','黑体'],['songti','宋体'],['kaiti','楷体'],['yuanti','圆体']];
+
 function renderSettings(){
   const c = document.getElementById('tabContent');
   const qrW = settings.pay_qr_wechat || '';
   const qrA = settings.pay_qr_alipay || '';
+  const fontSel = FONT_OPTS.map(([v,t])=>`<option value="${v}" ${settings.theme_font===v?'selected':''}>${t}</option>`).join('');
   c.innerHTML = `
     <div class="bar"><h3>站点设置</h3></div>
     <div class="card">
@@ -398,7 +439,29 @@ function renderSettings(){
       <label>首屏介绍文案</label><textarea id="setHeroDesc">${esc(settings.hero_desc||'')}</textarea>
       <label>顶部公告（留空不显示）</label><input id="setAnnouncement" value="${esc(settings.announcement||'')}">
       <label>联系方式 / 付款说明</label><input id="setContact" value="${esc(settings.contact||'')}">
-      <button class="btn btn-accent" style="margin-top:18px" onclick="saveSettings()">保存设置</button>
+    </div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:6px">🎨 主题外观</div>
+      <label>主色调（按钮、高亮）</label>
+      <div class="color-row"><input type="color" id="setAccent" value="${esc(settings.theme_accent||'#c8f62e')}"><span class="hint" style="margin:0">${esc(settings.theme_accent||'#c8f62e')}</span></div>
+      <label>背景色</label>
+      <div class="color-row"><input type="color" id="setBg" value="${esc(settings.theme_bg||'#0b0b0c')}"><span class="hint" style="margin:0">${esc(settings.theme_bg||'#0b0b0c')}</span></div>
+      <label>文字颜色</label>
+      <div class="color-row"><input type="color" id="setText" value="${esc(settings.theme_text||'#f4f4f2')}"><span class="hint" style="margin:0">${esc(settings.theme_text||'#f4f4f2')}</span></div>
+      <label>字体</label>
+      <select id="setFont">${fontSel}</select>
+      <div class="hint">保存后刷新前台即可看到效果</div>
+    </div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:6px">📊 统计数字 & 页脚</div>
+      <label>「剪辑师在用」数字</label><input id="setStatCreators" value="${esc(settings.stat_creators||'12K+')}">
+      <label>「平均评分」数字</label><input id="setStatRating" value="${esc(settings.stat_rating||'4.9')}">
+      <label>页脚简介文字</label><textarea id="setFooterAbout">${esc(settings.footer_about||'')}</textarea>
+    </div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:6px">❓ 常见问题</div>
+      <div class="hint" style="margin-bottom:8px">每行一条，格式：问题|答案（用竖线分隔）</div>
+      <textarea id="setFaq" style="min-height:140px">${esc(settings.faq_text||'')}</textarea>
     </div>
     <div class="card">
       <div style="font-weight:800;margin-bottom:6px">收款码</div>
@@ -411,7 +474,8 @@ function renderSettings(){
         ${qrW?`<div class="qr-item"><img src="${esc(qrW)}">微信</div>`:''}
         ${qrA?`<div class="qr-item"><img src="${esc(qrA)}">支付宝</div>`:''}
       </div>
-    </div>`;
+    </div>
+    <button class="btn btn-accent" style="width:100%;padding:13px" onclick="saveSettings()">保存全部设置</button>`;
 }
 
 async function saveSettings(){
@@ -421,11 +485,19 @@ async function saveSettings(){
     { key:'hero_title', value: document.getElementById('setHeroTitle').value },
     { key:'hero_desc', value: document.getElementById('setHeroDesc').value },
     { key:'announcement', value: document.getElementById('setAnnouncement').value },
-    { key:'contact', value: document.getElementById('setContact').value }
+    { key:'contact', value: document.getElementById('setContact').value },
+    { key:'theme_accent', value: document.getElementById('setAccent').value },
+    { key:'theme_bg', value: document.getElementById('setBg').value },
+    { key:'theme_text', value: document.getElementById('setText').value },
+    { key:'theme_font', value: document.getElementById('setFont').value },
+    { key:'stat_creators', value: document.getElementById('setStatCreators').value },
+    { key:'stat_rating', value: document.getElementById('setStatRating').value },
+    { key:'footer_about', value: document.getElementById('setFooterAbout').value },
+    { key:'faq_text', value: document.getElementById('setFaq').value }
   ];
   const { error } = await sb.from('settings').upsert(rows);
   if(error){ toast('保存失败：'+error.message); return; }
-  toast('设置已保存 ✅');
+  toast('设置已保存 ✅ 去前台刷新看看');
   await loadAll();
 }
 
