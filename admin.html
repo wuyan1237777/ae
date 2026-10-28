@@ -105,10 +105,10 @@ main{padding:16px 0}.bar{display:flex;align-items:center;justify-content:space-b
 <div><label>价格（0=免费）</label><input id="fPrice" type="number" min="0" step="0.01" value="0"></div>
 <div><label>原价</label><input id="fOldPrice" type="number" min="0" step="0.01"></div>
 </div>
-<label>产品图片（可多选，前台可切换查看）</label><input type="file" id="fImages" accept="image/*" multiple style="padding:7px">
+<label>产品图片（可多选，前台可切换）</label><input type="file" id="fImages" accept="image/*" multiple style="padding:7px">
 <div class="imgs-prev" id="imgsPrev"></div>
-<div class="hint" id="imgHint">支持一次选多张；第一张作为封面</div>
-<label>单张封面（可选，旧方式）</label><input type="file" id="fCover" accept="image/*" style="padding:7px">
+<div class="hint" id="imgHint">支持一次选多张；第一张作封面</div>
+<label>单张封面（可选）</label><input type="file" id="fCover" accept="image/*" style="padding:7px">
 <img id="coverPrev" class="cp">
 <div class="g2">
 <div><label>封面大字（无图时显示）</label><input id="fGlyph"></div>
@@ -127,28 +127,47 @@ main{padding:16px 0}.bar{display:flex;align-items:center;justify-content:space-b
 const sb=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
 const ADMIN=(window.ADMIN_EMAIL||'').toLowerCase();
 let currentUser=null,products=[],orders=[],profilesMap={},prodMap={},settings={},editingId=null,curTab='overview';
-const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])).replace(/`/g,'&#96;').replace(/\$\{/g,'$&#123;');
 let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2500);}
 const openM=id=>document.getElementById(id).classList.add('show');
 const closeM=id=>document.getElementById(id).classList.remove('show');
 
 const TEXT_FIELDS=[
-['site_name','店铺名称','text'],['site_tagline','副标题','text'],['announcement','顶部公告（留空不显示）','text'],
-['badge_text','首屏徽章文字','text'],['hero_title','首屏大标题（换行，最后一行变色）','textarea'],['hero_desc','首屏介绍文案','textarea'],
-['btn_browse','主按钮文字','text'],['btn_free','次按钮文字','text'],
-['stat_creators','统计1数字','text'],['stat_label1','统计1标签','text'],['stat_label2','统计2标签','text'],['stat_rating','统计3数字','text'],['stat_label3','统计3标签','text'],
-['marquee_items','跑马灯文字（逗号分隔）','textarea'],
-['products_title','产品区标题','text'],['products_sub','产品区副标题','text'],['search_placeholder','搜索框提示文字','text'],
-['perk1_icon','卖点1图标','text'],['perk1_title','卖点1标题','text'],['perk1_desc','卖点1描述','text'],
-['perk2_icon','卖点2图标','text'],['perk2_title','卖点2标题','text'],['perk2_desc','卖点2描述','text'],
-['perk3_icon','卖点3图标','text'],['perk3_title','卖点3标题','text'],['perk3_desc','卖点3描述','text'],
-['perk4_icon','卖点4图标','text'],['perk4_title','卖点4标题','text'],['perk4_desc','卖点4描述','text'],
-['rank_title','排行榜标题','text'],['faq_title','FAQ标题','text'],['faq_sub','FAQ副标题','text'],['faq_text','FAQ内容（每行：问题|答案）','textarea'],
-['footer_about','页脚简介','textarea'],['copyright_text','版权右侧文字','text']
+['site_name','店铺名称（导航栏、页脚、浏览器标题）','text'],
+['site_tagline','副标题（浏览器标题副文案）','text'],
+['announcement','顶部公告（顶部横幅，留空不显示）','text'],
+['badge_text','首屏徽章文字（大标题上方小标签）','text'],
+['hero_title','首屏大标题（换行控制分行，最后一行变色）','textarea'],
+['hero_desc','首屏介绍文案（标题下方灰字）','textarea'],
+['btn_browse','主按钮文字（浏览全部资源）','text'],
+['btn_free','次按钮文字（免费领取）','text'],
+['stat_creators','统计1：数字（剪辑师数量）','text'],
+['stat_label1','统计1：标签（数字下面的字）','text'],
+['stat_label2','统计2：标签（数字自动=产品数量）','text'],
+['stat_rating','统计3：数字（评分）','text'],
+['stat_label3','统计3：标签','text'],
+['marquee_items','跑马灯文字（用逗号分隔）','textarea'],
+['products_title','产品区标题（全部资源）','text'],
+['products_sub','产品区副标题','text'],
+['search_placeholder','搜索框提示文字','text'],
+['perk1_icon','卖点1：图标','text'],['perk1_title','卖点1：标题','text'],['perk1_desc','卖点1：描述','text'],
+['perk2_icon','卖点2：图标','text'],['perk2_title','卖点2：标题','text'],['perk2_desc','卖点2：描述','text'],
+['perk3_icon','卖点3：图标','text'],['perk3_title','卖点3：标题','text'],['perk3_desc','卖点3：描述','text'],
+['perk4_icon','卖点4：图标','text'],['perk4_title','卖点4：标题','text'],['perk4_desc','卖点4：描述','text'],
+['rank_title','排行榜标题（下载排行榜）','text'],
+['faq_title','常见问题：标题','text'],
+['faq_sub','常见问题：副标题','text'],
+['faq_text','常见问题：内容（每行一条：问题|答案）','textarea'],
+['footer_about','页脚简介文字','textarea'],
+['copyright_text','版权右侧文字','text']
 ];
 const TOGGLE_FIELDS=[
-['badge_show','显示首屏徽章'],['stats_show','显示统计数字'],['marquee_show','显示跑马灯'],
-['perks_show','显示卖点区'],['rank_show','显示排行榜'],['faq_show','显示常见问题']
+['badge_show','显示首屏徽章（大标题上方小标签）'],
+['stats_show','显示统计数字（12K+/资源数/评分）'],
+['marquee_show','显示跑马灯（滚动文字条）'],
+['perks_show','显示卖点区（4 个图标卡片）'],
+['rank_show','显示排行榜（下载排行）'],
+['faq_show','显示常见问题（FAQ 区块）']
 ];
 
 (async()=>{const {data:{session}}=await sb.auth.getSession();currentUser=session?.user||null;sb.auth.onAuthStateChange((e,s)=>{currentUser=s?.user||null;evaluate();});evaluate();})();
@@ -163,60 +182,12 @@ function renderOverview(){const pend=orders.filter(o=>o.status==='submitted').le
 
 function renderProducts(){let h=`<div class="bar"><h3>产品 ${products.length}</h3><button class="btn btn-accent" onclick="openPF()">新增</button></div>`;if(!products.length)h+='<div class="empty">暂无产品</div>';else h+='<div class="plist">'+products.map(p=>{const bg=p.cover_url?`background-image:url('${esc(p.cover_url)}')`:`background:${esc(p.cover_color||'#1b1b1e')}`;return `<div class="prow"><div class="pc" style="${bg}">${p.cover_url?'':esc(p.glyph||'AE')}</div><div class="pi"><div class="pt">${esc(p.title)}</div><div class="pm">${esc(p.category||'-')} / ${Number(p.price)===0?'免费':'¥'+Number(p.price)} / ${p.status==='published'?'上架':'下架'}</div><div class="pm">${p.file_path?'文件已上传':'无文件'} / 下载 ${p.downloads||0}</div></div><div style="display:flex;gap:5px;flex-direction:column"><button class="btn btn-ghost sm" onclick="openPF(${p.id})">编辑</button><button class="btn btn-ghost sm" onclick="delProduct(${p.id})">删除</button></div></div>`;}).join('')+'</div>';document.getElementById('tabContent').innerHTML=h;}
 
-function openPF(id){
- editingId=id||null;const p=id?products.find(x=>x.id===id):null;
- document.getElementById('pTitle').textContent=id?'编辑产品':'新增产品';
- document.getElementById('fTitle').value=p?.title||'';
- document.getElementById('fCategory').value=p?.category||'预设';
- document.getElementById('fStatus').value=p?.status||'published';
- document.getElementById('fPrice').value=p?.price??0;
- document.getElementById('fOldPrice').value=p?.old_price??'';
- document.getElementById('fGlyph').value=p?.glyph||'';
- document.getElementById('fColor').value=p?.cover_color||'#1b1b1e';
- document.getElementById('fDesc').value=p?.description||'';
- document.getElementById('fFile').value='';document.getElementById('fCover').value='';document.getElementById('fImages').value='';
- const cp=document.getElementById('coverPrev');if(p?.cover_url){cp.src=p.cover_url;cp.style.display='block';}else{cp.style.display='none';cp.src='';}
- let imgs=[];try{imgs=JSON.parse(p?.images||'[]');}catch(e){}
- document.getElementById('imgsPrev').innerHTML=imgs.map(u=>`<img src="${esc(u)}">`).join('');
- document.getElementById('imgHint').textContent=imgs.length?('已上传 '+imgs.length+' 张图，重新选择会替换'):'支持一次选多张；第一张作为封面';
- document.getElementById('fFileInfo').textContent=p?.file_path?('当前文件：'+p.file_path):'未上传文件';
- openM('pModal');
-}
+function openPF(id){editingId=id||null;const p=id?products.find(x=>x.id===id):null;document.getElementById('pTitle').textContent=id?'编辑产品':'新增产品';document.getElementById('fTitle').value=p?.title||'';document.getElementById('fCategory').value=p?.category||'预设';document.getElementById('fStatus').value=p?.status||'published';document.getElementById('fPrice').value=p?.price??0;document.getElementById('fOldPrice').value=p?.old_price??'';document.getElementById('fGlyph').value=p?.glyph||'';document.getElementById('fColor').value=p?.cover_color||'#1b1b1e';document.getElementById('fDesc').value=p?.description||'';document.getElementById('fFile').value='';document.getElementById('fCover').value='';document.getElementById('fImages').value='';const cp=document.getElementById('coverPrev');if(p?.cover_url){cp.src=p.cover_url;cp.style.display='block';}else{cp.style.display='none';cp.src='';}let imgs=[];try{imgs=JSON.parse(p?.images||'[]');}catch(e){}document.getElementById('imgsPrev').innerHTML=imgs.map(u=>`<img src="${esc(u)}">`).join('');document.getElementById('imgHint').textContent=imgs.length?('已上传 '+imgs.length+' 张图，重新选择会替换'):'支持一次选多张；第一张作封面';document.getElementById('fFileInfo').textContent=p?.file_path?('当前文件：'+p.file_path):'未上传文件';openM('pModal');}
 function closePF(){closeM('pModal');editingId=null;}
 document.getElementById('fCover').addEventListener('change',function(){const cp=document.getElementById('coverPrev');if(this.files[0]){cp.src=URL.createObjectURL(this.files[0]);cp.style.display='block';}});
 document.getElementById('fImages').addEventListener('change',function(){document.getElementById('imgsPrev').innerHTML=[...this.files].map(f=>`<img src="${URL.createObjectURL(f)}">`).join('');document.getElementById('imgHint').textContent='已选择 '+this.files.length+' 张（保存后上传）';});
 
-async function saveProduct(){
- const title=document.getElementById('fTitle').value.trim();if(!title){toast('请填写产品名称');return;}
- const btn=document.getElementById('saveBtn'),old=btn.textContent;btn.textContent='保存中...';btn.disabled=true;
- try{
-  const payload={title,category:document.getElementById('fCategory').value,price:Number(document.getElementById('fPrice').value)||0,old_price:document.getElementById('fOldPrice').value?Number(document.getElementById('fOldPrice').value):null,glyph:document.getElementById('fGlyph').value.trim()||'AE',cover_color:document.getElementById('fColor').value,description:document.getElementById('fDesc').value,status:document.getElementById('fStatus').value};
-  let id=editingId;
-  if(id){const {error}=await sb.from('products').update(payload).eq('id',id);if(error)throw error;}
-  else{const {data,error}=await sb.from('products').insert(payload).select().single();if(error)throw error;id=data.id;}
-  const ii=document.getElementById('fImages');
-  if(ii.files&&ii.files.length){
-   toast('上传图片中（0/'+ii.files.length+'）...');
-   const urls=[];
-   let n=0;
-   for(const f of ii.files){
-    const path='img_'+id+'_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+f.name.split('.').pop();
-    const {error:ie}=await sb.storage.from('covers').upload(path,f,{upsert:true});
-    if(!ie){const {data:pu}=sb.storage.from('covers').getPublicUrl(path);urls.push(pu.publicUrl);}
-    n++;toast('上传图片中（'+n+'/'+ii.files.length+'）...');
-   }
-   if(urls.length){
-    const {error:ime}=await sb.from('products').update({images:JSON.stringify(urls),cover_url:urls[0]}).eq('id',id);
-    if(ime)throw new Error('图片保存失败，请先跑升级 SQL 加 images 字段');
-   }
-  }
-  const ci=document.getElementById('fCover');
-  if(ci.files&&ci.files[0]){const f=ci.files[0],path='cover_'+id+'_'+Date.now()+'.'+f.name.split('.').pop();const {error:ce}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(ce)throw new Error('封面上传失败：'+ce.message);const {data:cu}=sb.storage.from('covers').getPublicUrl(path);const {error:ue}=await sb.from('products').update({cover_url:cu.publicUrl}).eq('id',id);if(ue)throw new Error('封面保存失败，请先跑升级 SQL');}
-  const fi=document.getElementById('fFile');
-  if(fi.files&&fi.files[0]){const f=fi.files[0],path=id+'/'+f.name;const {error:fe}=await sb.storage.from('files').upload(path,f,{upsert:true});if(fe)throw new Error('文件上传失败：'+fe.message);const {error:pe}=await sb.from('products').update({file_path:path}).eq('id',id);if(pe)throw pe;}
-  toast('已保存');closePF();await loadAll();
- }catch(e){toast(e.message||'保存失败');}finally{btn.textContent=old;btn.disabled=false;}
-}
+async function saveProduct(){const title=document.getElementById('fTitle').value.trim();if(!title){toast('请填写产品名称');return;}const btn=document.getElementById('saveBtn'),old=btn.textContent;btn.textContent='保存中...';btn.disabled=true;try{const payload={title,category:document.getElementById('fCategory').value,price:Number(document.getElementById('fPrice').value)||0,old_price:document.getElementById('fOldPrice').value?Number(document.getElementById('fOldPrice').value):null,glyph:document.getElementById('fGlyph').value.trim()||'AE',cover_color:document.getElementById('fColor').value,description:document.getElementById('fDesc').value,status:document.getElementById('fStatus').value};let id=editingId;if(id){const {error}=await sb.from('products').update(payload).eq('id',id);if(error)throw error;}else{const {data,error}=await sb.from('products').insert(payload).select().single();if(error)throw error;id=data.id;}const ii=document.getElementById('fImages');if(ii.files&&ii.files.length){toast('上传图片中（0/'+ii.files.length+'）...');const urls=[];let n=0;for(const f of ii.files){const path='img_'+id+'_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+f.name.split('.').pop();const {error:ie}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(!ie){const {data:pu}=sb.storage.from('covers').getPublicUrl(path);urls.push(pu.publicUrl);}n++;toast('上传图片中（'+n+'/'+ii.files.length+'）...');}if(urls.length){const {error:ime}=await sb.from('products').update({images:JSON.stringify(urls),cover_url:urls[0]}).eq('id',id);if(ime)throw new Error('图片保存失败，请先跑升级 SQL 加 images 字段');}}const ci=document.getElementById('fCover');if(ci.files&&ci.files[0]){const f=ci.files[0],path='cover_'+id+'_'+Date.now()+'.'+f.name.split('.').pop();const {error:ce}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(ce)throw new Error('封面上传失败：'+ce.message);const {data:cu}=sb.storage.from('covers').getPublicUrl(path);const {error:ue}=await sb.from('products').update({cover_url:cu.publicUrl}).eq('id',id);if(ue)throw new Error('封面保存失败');}const fi=document.getElementById('fFile');if(fi.files&&fi.files[0]){const f=fi.files[0],path=id+'/'+f.name;const {error:fe}=await sb.storage.from('files').upload(path,f,{upsert:true});if(fe)throw new Error('文件上传失败：'+fe.message);const {error:pe}=await sb.from('products').update({file_path:path}).eq('id',id);if(pe)throw pe;}toast('已保存');closePF();await loadAll();}catch(e){toast(e.message||'保存失败');}finally{btn.textContent=old;btn.disabled=false;}}
 async function delProduct(id){if(!confirm('确定删除这个产品吗？'))return;const {error}=await sb.from('products').delete().eq('id',id);if(error){toast('删除失败：'+error.message);return;}toast('已删除');await loadAll();}
 
 function renderOrders(){const T={pending:'待付款',submitted:'待确认',paid:'已付款',cancelled:'已取消'},C={pending:'st-pending',submitted:'st-submitted',paid:'st-paid',cancelled:'st-cancelled'};let h=`<div class="bar"><h3>订单 ${orders.length}</h3></div>`;if(!orders.length)h+='<div class="empty">暂无订单</div>';else h+=orders.map(o=>{const p=prodMap[o.product_id],title=p?p.title:'产品已删除',price=p?Number(p.price)||0:0,email=profilesMap[o.user_id]||(o.user_id||'').slice(0,8)+'...';let a='';if(o.status==='submitted')a=`<button class="btn btn-accent sm" onclick="setOrder(${o.id},'paid')">确认收款</button><button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消</button>`;else if(o.status==='pending')a=`<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消</button>`;else if(o.status==='paid')a=`<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">撤销</button>`;return `<div class="oi"><div class="oh"><span class="ot">${esc(title)}</span><span class="st ${C[o.status]||''}">${T[o.status]||o.status}</span></div><div class="om">#${o.id} / ¥${price}<br>买家：${esc(email)}<br>${new Date(o.created_at).toLocaleString('zh-CN')}</div>${a?`<div class="oa">${a}</div>`:''}</div>`;}).join('');document.getElementById('tabContent').innerHTML=h;}
@@ -225,31 +196,21 @@ async function setOrder(id,status){const {error}=await sb.from('orders').update(
 function renderSettings(){
  const fh=(k,l,t)=>t==='textarea'?`<label>${l}</label><textarea id="f_${k}">${esc(settings[k]||'')}</textarea>`:`<label>${l}</label><input id="f_${k}" value="${esc(settings[k]||'')}">`;
  const texts=TEXT_FIELDS.map(([k,l,t])=>fh(k,l,t)).join('');
- const toggles=TOGGLE_FIELDS.map(([k,l])=>`<label style="display:flex;align-items:center;gap:8px;margin:10px 0"><input type="checkbox" id="t_${k}" ${settings[k]==='1'?'checked':''}> ${l}</label>`).join('');
+ const toggles=TOGGLE_FIELDS.map(([k,l])=>`<label style="display:flex;align-items:center;gap:8px;margin:10px 0"><input type="checkbox" id="t_${k}" ${settings[k]==='0'?'':'checked'}> ${l}</label>`).join('');
  const fs=[['system','系统默认'],['heiti','黑体'],['songti','宋体'],['kaiti','楷体'],['yuanti','圆体']].map(([v,t])=>`<option value="${v}"${settings.theme_font===v?' selected':''}>${t}</option>`).join('');
  const qw=settings.pay_qr_wechat||'',qa=settings.pay_qr_alipay||'';
  document.getElementById('tabContent').innerHTML=`
  <div class="bar"><h3>站点设置</h3></div>
- <div class="card"><b>页面区块显示开关</b><div class="hint" style="margin-bottom:6px">想显示就勾选，想隐藏就取消</div>${toggles}</div>
- <div class="card"><b>页面文字（全部可改）</b>${texts}</div>
- <div class="card"><b>主题外观</b><label>主色调</label><div class="cr"><input type="color" id="sAccent" value="${esc(settings.theme_accent||'#c8f62e')}"></div><label>背景色</label><div class="cr"><input type="color" id="sBg" value="${esc(settings.theme_bg||'#0b0b0c')}"></div><label>文字颜色</label><div class="cr"><input type="color" id="sText" value="${esc(settings.theme_text||'#f4f4f2')}"></div><label>字体</label><select id="sFont">${fs}</select></div>
- <div class="card"><b>图片和字体文件</b><label>Logo</label><input type="file" accept="image/*" onchange="uploadAsset('logo',this)" style="padding:7px">${settings.logo_url?`<img src="${esc(settings.logo_url)}" class="pv" style="display:block">`:''}<label>首页大图</label><input type="file" accept="image/*" onchange="uploadAsset('hero',this)" style="padding:7px">${settings.hero_bg_url?`<img src="${esc(settings.hero_bg_url)}" class="pv" style="display:block">`:''}<label>网站图标</label><input type="file" accept="image/*" onchange="uploadAsset('favicon',this)" style="padding:7px"><label>字体文件</label><input type="file" accept=".woff2,.woff,.ttf,.otf" onchange="uploadAsset('font',this)" style="padding:7px"><div class="hint">${settings.font_url?'已上传自定义字体':'未上传自定义字体'}</div></div>
- <div class="card"><b>收款码</b><label>微信</label><input type="file" id="qrW" accept="image/*" onchange="uploadQR('wechat')" style="padding:7px"><label>支付宝</label><input type="file" id="qrA" accept="image/*" onchange="uploadQR('alipay')" style="padding:7px"><div class="qp">${qw?`<img src="${esc(qw)}">`:''}${qa?`<img src="${esc(qa)}">`:''}</div></div>
- <div class="card"><b>备份</b><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn btn-ghost" onclick="exportData()">导出数据</button><label class="btn btn-ghost" style="margin:0;cursor:pointer">导入数据<input type="file" accept=".json,application/json" onchange="importData(this)" style="display:none"></label></div></div>
+ <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><b>页面区块显示开关</b><div style="display:flex;gap:6px"><button class="btn btn-ghost sm" onclick="allToggles(true)">全部显示</button><button class="btn btn-ghost sm" onclick="allToggles(false)">全部隐藏</button></div></div><div class="hint" style="margin:6px 0 8px">勾选=显示，取消=隐藏。产品卡片不受这些开关影响。</div>${toggles}</div>
+ <div class="card"><b>页面文字（全部可改）</b><div class="hint" style="margin:6px 0 8px">括号里说明了每一项显示在页面什么位置。</div>${texts}</div>
+ <div class="card"><b>主题外观</b><label>主色调（按钮、标签、高亮）</label><div class="cr"><input type="color" id="sAccent" value="${esc(settings.theme_accent||'#c8f62e')}"></div><label>背景色（整个网站底色）</label><div class="cr"><input type="color" id="sBg" value="${esc(settings.theme_bg||'#0b0b0c')}"></div><label>文字颜色（正文）</label><div class="cr"><input type="color" id="sText" value="${esc(settings.theme_text||'#f4f4f2')}"></div><label>字体（全站）</label><select id="sFont">${fs}</select></div>
+ <div class="card"><b>图片和字体文件</b><label>Logo（显示在导航栏左上角）</label><input type="file" accept="image/*" onchange="uploadAsset('logo',this)" style="padding:7px">${settings.logo_url?`<img src="${esc(settings.logo_url)}" class="pv" style="display:block">`:''}<label>首页大图（首屏背景）</label><input type="file" accept="image/*" onchange="uploadAsset('hero',this)" style="padding:7px">${settings.hero_bg_url?`<img src="${esc(settings.hero_bg_url)}" class="pv" style="display:block">`:''}<label>网站图标（浏览器标签页）</label><input type="file" accept="image/*" onchange="uploadAsset('favicon',this)" style="padding:7px"><label>字体文件（woff2/ttf/otf，全站生效）</label><input type="file" accept=".woff2,.woff,.ttf,.otf" onchange="uploadAsset('font',this)" style="padding:7px"><div class="hint">${settings.font_url?'已上传自定义字体':'未上传自定义字体'}</div></div>
+ <div class="card"><b>收款码</b><label>微信收款码（买家下单时显示）</label><input type="file" id="qrW" accept="image/*" onchange="uploadQR('wechat')" style="padding:7px"><label>支付宝收款码</label><input type="file" id="qrA" accept="image/*" onchange="uploadQR('alipay')" style="padding:7px"><div class="qp">${qw?`<img src="${esc(qw)}">`:''}${qa?`<img src="${esc(qa)}">`:''}</div></div>
+ <div class="card"><b>备份</b><div class="hint" style="margin-bottom:8px">导出全部设置和产品数据，换设备或改坏时可恢复</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="exportData()">导出数据</button><label class="btn btn-ghost" style="margin:0;cursor:pointer">导入数据<input type="file" accept=".json,application/json" onchange="importData(this)" style="display:none"></label></div></div>
  <button class="btn btn-accent" style="width:100%;padding:12px" onclick="saveSettings()">保存全部设置</button>`;
 }
-async function saveSettings(){
- const rows=[];
- TEXT_FIELDS.forEach(([k])=>{const el=document.getElementById('f_'+k);if(el)rows.push({key:k,value:el.value});});
- TOGGLE_FIELDS.forEach(([k])=>{const el=document.getElementById('t_'+k);if(el)rows.push({key:k,value:el.checked?'1':'0'});});
- rows.push({key:'theme_accent',value:document.getElementById('sAccent').value});
- rows.push({key:'theme_bg',value:document.getElementById('sBg').value});
- rows.push({key:'theme_text',value:document.getElementById('sText').value});
- rows.push({key:'theme_font',value:document.getElementById('sFont').value});
- const {error}=await sb.from('settings').upsert(rows);
- if(error){toast('保存失败：'+error.message);return;}
- toast('已保存');await loadAll();
-}
+function allToggles(on){document.querySelectorAll('#tabContent input[type=checkbox]').forEach(c=>c.checked=on);}
+async function saveSettings(){const rows=[];TEXT_FIELDS.forEach(([k])=>{const el=document.getElementById('f_'+k);if(el)rows.push({key:k,value:el.value});});TOGGLE_FIELDS.forEach(([k])=>{const el=document.getElementById('t_'+k);if(el)rows.push({key:k,value:el.checked?'1':'0'});});rows.push({key:'theme_accent',value:document.getElementById('sAccent').value});rows.push({key:'theme_bg',value:document.getElementById('sBg').value});rows.push({key:'theme_text',value:document.getElementById('sText').value});rows.push({key:'theme_font',value:document.getElementById('sFont').value});const {error}=await sb.from('settings').upsert(rows);if(error){toast('保存失败：'+error.message);return;}toast('已保存');await loadAll();}
 async function uploadQR(type){const input=document.getElementById(type==='wechat'?'qrW':'qrA'),f=input.files[0];if(!f)return;toast('上传中...');const path='qr_'+type+'_'+Date.now()+'.'+f.name.split('.').pop();const {error}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(error){toast('上传失败：'+error.message);return;}const {data}=sb.storage.from('covers').getPublicUrl(path);const key=type==='wechat'?'pay_qr_wechat':'pay_qr_alipay';await sb.from('settings').upsert([{key,value:data.publicUrl}]);settings[key]=data.publicUrl;toast('已更新');renderSettings();}
 async function uploadAsset(type,input){const f=input.files[0];if(!f)return;toast('上传中...');const path=type+'_'+Date.now()+'.'+f.name.split('.').pop();const {error}=await sb.storage.from('covers').upload(path,f,{upsert:true});if(error){toast('上传失败：'+error.message);return;}const {data}=sb.storage.from('covers').getPublicUrl(path);const key={logo:'logo_url',hero:'hero_bg_url',favicon:'favicon_url',font:'font_url'}[type];await sb.from('settings').upsert([{key,value:data.publicUrl}]);settings[key]=data.publicUrl;toast('已更新');renderSettings();}
 async function exportData(){const [s,p]=await Promise.all([sb.from('settings').select('*'),sb.from('products').select('*')]);const blob=new Blob([JSON.stringify({settings:s.data||[],products:p.data||[]},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup_'+Date.now()+'.json';document.body.appendChild(a);a.click();a.remove();toast('已导出');}
