@@ -68,7 +68,7 @@ header{position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);background:r
 .tag.free{background:#fff;color:#000}.tag.hot{background:#ff4d4d;color:#fff}
 .card-body{padding:14px;display:flex;flex-direction:column;flex:1}
 .card-body .cat{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:800}
-.card-body h3{font-size:15.5px;margin:6px 0 6px;font-weight:800;line-height:1.35}
+.card-body h3{font-size:15.5px;margin:6px 0;font-weight:800;line-height:1.35}
 .card-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto}
 .price{font-size:17px;font-weight:900;white-space:nowrap}.price.free{color:var(--accent);font-size:13px}
@@ -115,12 +115,25 @@ footer{border-top:1px solid var(--line);padding:36px 0 22px;background:var(--pan
 .thumbs{display:flex;gap:8px;padding:10px 12px;overflow-x:auto;background:var(--panel)}
 .thumbs img{width:56px;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent;flex-shrink:0}
 .thumbs img.on{border-color:var(--accent)}
+.video-wrap{position:relative;padding-top:56.25%;margin:0 0 14px;background:#000;border-radius:10px;overflow:hidden}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .modal-content{padding:22px}
 .modal-content .cat{font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;font-weight:800}
 .modal-content h2{font-size:22px;margin:7px 0 11px;font-weight:900;line-height:1.3}
 .modal-content .desc{color:var(--muted);line-height:1.8;font-size:14px;margin-bottom:16px;white-space:pre-wrap}
 .modal-foot{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
 .modal-foot .price{font-size:25px}
+.like-row{display:flex;align-items:center;gap:10px;margin-top:16px}
+.like-btn{background:var(--panel2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit}
+.like-btn.on{background:var(--accent);color:#000;border-color:var(--accent)}
+.comments{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+.comments h4{font-size:14px;font-weight:800;margin-bottom:10px}
+.comment{padding:10px 0;border-bottom:1px solid var(--line)}
+.comment-meta{font-size:11px;color:var(--muted);margin-bottom:4px}
+.comment-text{font-size:13px;line-height:1.7;white-space:pre-wrap}
+.comment-form{display:flex;gap:8px;margin-top:12px}
+.comment-form input{flex:1;height:40px;padding:0 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:13px;outline:none}
+.comment-form button{background:var(--accent);color:#000;border:none;border-radius:8px;padding:0 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700}
 .form-group input{width:100%;height:44px;padding:0 14px;border-radius:9px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none}
@@ -143,7 +156,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 22px;background:var(--pan
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:12px 22px;border-radius:99px;font-weight:800;font-size:14px;z-index:300;transition:.3s;box-shadow:0 14px 40px rgba(var(--accent-rgb),.35);max-width:90vw;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 @media(max-width:820px){.nav-links{display:none}.menu-btn{display:grid;place-items:center}.foot-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.grid{grid-template-columns:1fr 1fr;gap:11px}.thumb{height:110px}.thumb .big{font-size:23px}.card-body{padding:11px}.card-body h3{font-size:13px;margin:5px 0 6px}.card-desc{font-size:11px;-webkit-line-clamp:2;margin-bottom:8px}.price{font-size:15px}.price.free{font-size:12px}.card-btn{padding:6px 9px;font-size:10.5px}.hero{padding:36px 0 30px}.stats{gap:22px;margin-top:26px}.modal-content{padding:17px}.modal-content h2{font-size:19px}.gallery .main-img{height:180px}.foot-grid{grid-template-columns:1fr;gap:24px}.btn-accent,.btn-ghost{padding:9px 15px;font-size:13px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr 1fr;gap:11px}.thumb{height:110px}.thumb .big{font-size:23px}.card-body{padding:11px}.card-body h3{font-size:13px;margin:5px 0}.card-desc{font-size:11px;-webkit-line-clamp:2;margin-bottom:8px}.price{font-size:15px}.price.free{font-size:12px}.card-btn{padding:6px 9px;font-size:10.5px}.hero{padding:36px 0 30px}.stats{gap:22px;margin-top:26px}.modal-content{padding:17px}.modal-content h2{font-size:19px}.gallery .main-img{height:180px}.foot-grid{grid-template-columns:1fr;gap:24px}.btn-accent,.btn-ghost{padding:9px 15px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -190,44 +203,11 @@ footer{border-top:1px solid var(--line);padding:36px 0 22px;background:var(--pan
 const sb=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
 let currentUser=null,products=[],settings={},activeFilter='all',authMode='login',currentPay=null;
 const FONTS={system:'-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif',heiti:'"PingFang SC","Microsoft YaHei","Heiti SC",sans-serif',songti:'"Songti SC",SimSun,serif',kaiti:'"Kaiti SC",KaiTi,serif',yuanti:'"Yuanti SC","YouYuan",sans-serif'};
-const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])).replace(/`/g,'&#96;').replace(/\$\{/g,'$&#123;');
 function hexToRgb(h){const m=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h||'');return m?`${parseInt(m[1],16)},${parseInt(m[2],16)},${parseInt(m[3],16)}`:null;}
 (async()=>{const {data:{session}}=await sb.auth.getSession();currentUser=session?.user||null;sb.auth.onAuthStateChange((e,s)=>{currentUser=s?.user||null;updateAuthUI();});await loadSettings();await loadProducts();updateAuthUI();})();
 function show(k,def=true){return settings[k]===undefined?def:settings[k]==='1';}
-async function loadSettings(){
- const {data}=await sb.from('settings').select('*');(data||[]).forEach(r=>settings[r.key]=r.value);
- const root=document.documentElement.style;
- if(settings.theme_accent){root.setProperty('--accent',settings.theme_accent);const rgb=hexToRgb(settings.theme_accent);if(rgb)root.setProperty('--accent-rgb',rgb);}
- if(settings.theme_bg)root.setProperty('--bg',settings.theme_bg);
- if(settings.theme_text)root.setProperty('--text',settings.theme_text);
- document.body.style.fontFamily=FONTS[settings.theme_font]||FONTS.system;
- if(settings.font_url){const st=document.createElement('style');st.textContent=`@font-face{font-family:'CustomFont';src:url('${settings.font_url}');font-display:swap;}`;document.head.appendChild(st);document.body.style.fontFamily="'CustomFont',"+FONTS.system;}
- if(settings.favicon_url){let l=document.querySelector("link[rel='icon']");if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l);}l.href=settings.favicon_url;}
- if(settings.logo_url){const lg=document.getElementById('logoImg');lg.src=settings.logo_url;lg.style.display='block';const mk=document.getElementById('logoMark');if(mk)mk.style.display='none';}
- if(settings.hero_bg_url){const hb=document.querySelector('.hero');hb.classList.add('has-bg');hb.style.backgroundImage=`url('${settings.hero_bg_url}')`;}
- document.querySelectorAll('.site-name').forEach(e=>{if(settings.site_name)e.textContent=settings.site_name;});
- if(settings.site_name)document.title=settings.site_name+' — '+(settings.site_tagline||'');
- if(settings.announcement){const b=document.getElementById('announceBar');b.textContent=settings.announcement;b.style.display='block';}
- const ht=settings.hero_title||"AE预设.\n模板.\n工程文件.";const lines=ht.split('\n');
- document.getElementById('heroTitle').innerHTML=lines.map((l,i)=>i===lines.length-1?`<span class="hl">${esc(l)}</span>`:esc(l)).join('<br>');
- const set=(id,v)=>{const el=document.getElementById(id);if(el&&v)el.textContent=v;};
- if(settings.hero_desc)document.getElementById('heroDesc').textContent=settings.hero_desc;
- set('badgeText',settings.badge_text);set('btnBrowse',settings.btn_browse);set('btnFree',settings.btn_free);
- set('statLabel1',settings.stat_label1);set('statLabel2',settings.stat_label2);set('statLabel3',settings.stat_label3);
- set('productsTitle',settings.products_title);set('productsSub',settings.products_sub);
- if(settings.search_placeholder)document.getElementById('searchInput').placeholder=settings.search_placeholder;
- set('rankTitle',settings.rank_title);set('faqTitle',settings.faq_title);set('faqSub',settings.faq_sub);set('copyrightText',settings.copyright_text);
- if(settings.stat_creators)document.getElementById('statCreators').textContent=settings.stat_creators;
- if(settings.stat_rating)document.getElementById('statRating').textContent=settings.stat_rating;
- if(settings.footer_about)document.getElementById('footerAbout').textContent=settings.footer_about;
- document.getElementById('badgeWrap').style.display=show('badge_show')?'inline-flex':'none';
- document.getElementById('statsWrap').style.display=show('stats_show')?'flex':'none';
- document.getElementById('marqueeWrap').style.display=show('marquee_show')?'block':'none';
- document.getElementById('perksWrap').style.display=show('perks_show')?'grid':'none';
- document.getElementById('rank').style.display=show('rank_show')?'block':'none';
- document.getElementById('faq').style.display=show('faq_show')?'block':'none';
- renderMarquee();renderPerks();renderFaq();
-}
+async function loadSettings(){const {data}=await sb.from('settings').select('*');(data||[]).forEach(r=>settings[r.key]=r.value);const root=document.documentElement.style;if(settings.theme_accent){root.setProperty('--accent',settings.theme_accent);const rgb=hexToRgb(settings.theme_accent);if(rgb)root.setProperty('--accent-rgb',rgb);}if(settings.theme_bg)root.setProperty('--bg',settings.theme_bg);if(settings.theme_text)root.setProperty('--text',settings.theme_text);document.body.style.fontFamily=FONTS[settings.theme_font]||FONTS.system;if(settings.font_url){const st=document.createElement('style');st.textContent=`@font-face{font-family:'CustomFont';src:url('${settings.font_url}');font-display:swap;}`;document.head.appendChild(st);document.body.style.fontFamily="'CustomFont',"+FONTS.system;}if(settings.favicon_url){let l=document.querySelector("link[rel='icon']");if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l);}l.href=settings.favicon_url;}if(settings.logo_url){const lg=document.getElementById('logoImg');lg.src=settings.logo_url;lg.style.display='block';const mk=document.getElementById('logoMark');if(mk)mk.style.display='none';}if(settings.hero_bg_url){const hb=document.querySelector('.hero');hb.classList.add('has-bg');hb.style.backgroundImage=`url('${settings.hero_bg_url}')`;}document.querySelectorAll('.site-name').forEach(e=>{if(settings.site_name)e.textContent=settings.site_name;});if(settings.site_name)document.title=settings.site_name+' — '+(settings.site_tagline||'');if(settings.announcement){const b=document.getElementById('announceBar');b.textContent=settings.announcement;b.style.display='block';}const ht=settings.hero_title||"AE预设.\n模板.\n工程文件.";const lines=ht.split('\n');document.getElementById('heroTitle').innerHTML=lines.map((l,i)=>i===lines.length-1?`<span class="hl">${esc(l)}</span>`:esc(l)).join('<br>');const set=(id,v)=>{const el=document.getElementById(id);if(el&&v)el.textContent=v;};if(settings.hero_desc)document.getElementById('heroDesc').textContent=settings.hero_desc;set('badgeText',settings.badge_text);set('btnBrowse',settings.btn_browse);set('btnFree',settings.btn_free);set('statLabel1',settings.stat_label1);set('statLabel2',settings.stat_label2);set('statLabel3',settings.stat_label3);set('productsTitle',settings.products_title);set('productsSub',settings.products_sub);if(settings.search_placeholder)document.getElementById('searchInput').placeholder=settings.search_placeholder;set('rankTitle',settings.rank_title);set('faqTitle',settings.faq_title);set('faqSub',settings.faq_sub);set('copyrightText',settings.copyright_text);if(settings.stat_creators)document.getElementById('statCreators').textContent=settings.stat_creators;if(settings.stat_rating)document.getElementById('statRating').textContent=settings.stat_rating;if(settings.footer_about)document.getElementById('footerAbout').textContent=settings.footer_about;document.getElementById('badgeWrap').style.display=show('badge_show')?'inline-flex':'none';document.getElementById('statsWrap').style.display=show('stats_show')?'flex':'none';document.getElementById('marqueeWrap').style.display=show('marquee_show')?'block':'none';document.getElementById('perksWrap').style.display=show('perks_show')?'grid':'none';document.getElementById('rank').style.display=show('rank_show')?'block':'none';document.getElementById('faq').style.display=show('faq_show')?'block':'none';renderMarquee();renderPerks();renderFaq();}
 function renderMarquee(){const raw=settings.marquee_items||'After Effects,Premiere Pro,剪映,达芬奇,预设,工程文件,免费下载,即时发货,永久更新';const items=raw.split(',').map(x=>x.trim()).filter(Boolean);const half=items.map(x=>`<span><b>✦</b> ${esc(x)}</span>`).join('');document.getElementById('marqueeTrack').innerHTML=half+half;}
 function renderPerks(){const defs=[['⚡','即时下载','付款确认后立刻获取文件，无需等待。'],['🔄','永久更新','一次购买，后续更新全部免费。'],['📄','商用授权','可用于个人及客户商单项目。'],['🛟','售后无忧','文件有问题 7 天内可退换。']];document.getElementById('perksWrap').innerHTML=defs.map((d,i)=>`<div class="perk"><span class="ico">${esc(settings['perk'+(i+1)+'_icon']||d[0])}</span><h4>${esc(settings['perk'+(i+1)+'_title']||d[1])}</h4><p>${esc(settings['perk'+(i+1)+'_desc']||d[2])}</p></div>`).join('');}
 function renderFaq(){const raw=settings.faq_text||'';const items=raw.split('\n').filter(Boolean).map(line=>{const i=line.indexOf('|');return i<0?{q:line.trim(),a:''}:{q:line.slice(0,i).trim(),a:line.slice(i+1).trim()};});document.getElementById('faqList').innerHTML=items.map(it=>`<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">${esc(it.q)}<span class="ic">+</span></button><div class="faq-a"><p>${esc(it.a)}</p></div></div>`).join('');}
@@ -239,8 +219,48 @@ function parseImgs(p){let arr=[];try{arr=JSON.parse(p.images||'[]');}catch(e){}i
 function thumbHtml(p){const imgs=parseImgs(p);if(imgs.length)return `<div class="thumb"><img src="${esc(imgs[0])}" alt=""></div>`;return `<div class="thumb" style="background:linear-gradient(135deg,${esc(p.cover_color||'#1b1b1e')},var(--bg))"><span class="big">${esc(p.glyph||'AE')}</span></div>`;}
 function renderProducts(){const grid=document.getElementById('grid');const q=(document.getElementById('searchInput').value||'').trim().toLowerCase();const list=products.filter(p=>{const okCat=activeFilter==='all'||(activeFilter==='__free'?Number(p.price)===0:p.category===activeFilter);const okQ=!q||(p.title||'').toLowerCase().includes(q)||(p.description||'').toLowerCase().includes(q)||(p.category||'').toLowerCase().includes(q);return okCat&&okQ;});if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 0">暂无资源</div>`;return;}grid.innerHTML=list.map(p=>{const price=Number(p.price)||0;const old=p.old_price?`<span class="old">¥${Number(p.old_price)}</span>`:'';const tag=price===0?`<span class="tag free">免费</span>`:(p.old_price?`<span class="tag hot">特惠</span>`:'');const desc=(p.description||'').replace(/\s+/g,' ').trim();return `<div class="card" onclick="openProduct(${p.id})">${thumbHtml(p)}${tag}<div class="card-body"><div class="cat">${esc(p.category||'资源')}</div><h3>${esc(p.title)}</h3><p class="card-desc">${esc(desc||'点击查看详情')}</p><div class="card-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div><button class="card-btn" onclick="event.stopPropagation();openProduct(${p.id})">查看详情</button></div></div></div>`;}).join('');}
 function renderRank(){const list=[...products].sort((a,b)=>(b.downloads||0)-(a.downloads||0)).slice(0,5);const box=document.getElementById('rankList');if(!list.length){box.innerHTML='<div style="color:var(--muted);text-align:center;padding:20px">暂无数据</div>';return;}box.innerHTML=list.map((p,i)=>{const imgs=parseImgs(p);return `<div class="rank-item" onclick="openProduct(${p.id})"><div class="rank-no ${i<3?'top':''}">${i+1}</div>${imgs.length?`<img class="rank-cover" src="${esc(imgs[0])}" style="object-fit:cover">`:`<div class="rank-cover" style="background:${esc(p.cover_color||'#1b1b1e')}">${esc(p.glyph||'AE')}</div>`}<div class="rank-info"><div class="rank-title">${esc(p.title)}</div><div class="rank-meta">${esc(p.category||'资源')} · ${Number(p.price)===0?'免费':'¥'+Number(p.price)}</div></div><div class="rank-dl">${p.downloads||0}</div></div>`;}).join('');}
-function openProduct(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;const imgs=parseImgs(p);const g=document.getElementById('mGallery');if(imgs.length){g.innerHTML=`<div class="gallery"><img id="mainImg" class="main-img" src="${esc(imgs[0])}"><div class="thumbs" id="thumbs">${imgs.map((u,i)=>`<img src="${esc(u)}" class="${i===0?'on':''}" onclick="switchImg('${esc(u)}',this)">`).join('')}</div></div>`;}else{g.innerHTML=`<div class="gallery"><div class="no-img" style="background:linear-gradient(135deg,${esc(p.cover_color||'#1b1b1e')},var(--bg))">${esc(p.glyph||'AE')}</div></div>`;}const price=Number(p.price)||0;const old=p.old_price?`<span class="old">¥${Number(p.old_price)}</span>`:'';document.getElementById('mContent').innerHTML=`<div class="cat">${esc(p.category||'资源')}</div><h2>${esc(p.title)}</h2><p class="desc">${esc(p.description||'暂无介绍')}</p><div class="modal-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div><button class="btn btn-accent" onclick="buy(${p.id})">${price===0?'免费下载':'立即购买'}</button></div>`;openModalEl('modal');}
+function openProduct(id){
+ const p=products.find(x=>String(x.id)===String(id));if(!p)return;
+ const imgs=parseImgs(p);const g=document.getElementById('mGallery');
+ if(imgs.length){g.innerHTML=`<div class="gallery"><img id="mainImg" class="main-img" src="${esc(imgs[0])}"><div class="thumbs" id="thumbs">${imgs.map((u,i)=>`<img src="${esc(u)}" class="${i===0?'on':''}" onclick="switchImg('${esc(u)}',this)">`).join('')}</div></div>`;}
+ else{g.innerHTML=`<div class="gallery"><div class="no-img" style="background:linear-gradient(135deg,${esc(p.cover_color||'#1b1b1e')},var(--bg))">${esc(p.glyph||'AE')}</div></div>`;}
+ const price=Number(p.price)||0;const old=p.old_price?`<span class="old">¥${Number(p.old_price)}</span>`:'';const video=p.video_url?`<div class="video-wrap"><iframe src="${esc(p.video_url)}" allowfullscreen loading="lazy"></iframe></div>`:'';
+ document.getElementById('mContent').innerHTML=`<div class="cat">${esc(p.category||'资源')}</div><h2>${esc(p.title)}</h2><p class="desc">${esc(p.description||'暂无介绍')}</p>${video}<div class="modal-foot"><div class="price ${price===0?'free':''}">${old}${price===0?'免费':'¥'+price}</div><button class="btn btn-accent" onclick="buy(${p.id})">${price===0?'免费下载':'立即购买'}</button></div><div class="like-row"><button id="likeBtn" class="like-btn" onclick="toggleLike(${p.id})">点赞</button></div><div class="comments"><h4>评论</h4><div id="commentsBox"><div style="color:var(--muted);font-size:12.5px;padding:6px 0">加载中…</div></div><div class="comment-form"><input id="commentInput" placeholder="写评论…（审核后显示）"><button onclick="postComment(${p.id})">发表</button></div></div>`;
+ openModalEl('modal');loadLikes(p.id);loadComments(p.id);
+}
 function switchImg(url,el){document.getElementById('mainImg').src=url;document.querySelectorAll('#thumbs img').forEach(i=>i.classList.remove('on'));el.classList.add('on');}
+async function loadLikes(pid){
+ try{
+  const {count}=await sb.from('likes').select('*',{count:'exact',head:true}).eq('product_id',pid);
+  let liked=false;
+  if(currentUser){const {data}=await sb.from('likes').select('id').eq('product_id',pid).eq('user_id',currentUser.id).maybeSingle();liked=!!data;}
+  const el=document.getElementById('likeBtn');
+  if(el){el.classList.toggle('on',liked);el.textContent=(liked?'已点赞':'点赞')+' '+(count||0);}
+ }catch(e){}
+}
+async function toggleLike(pid){
+ if(!currentUser){showToast('请先登录');openAuth('login');return;}
+ const {data}=await sb.from('likes').select('id').eq('product_id',pid).eq('user_id',currentUser.id).maybeSingle();
+ if(data){await sb.from('likes').delete().eq('id',data.id);}
+ else{const {error}=await sb.from('likes').insert({user_id:currentUser.id,product_id:pid});if(error){showToast('操作失败：'+error.message);return;}}
+ loadLikes(pid);
+}
+async function loadComments(pid){
+ const box=document.getElementById('commentsBox');if(!box)return;
+ try{
+  const {data}=await sb.from('comments').select('*').eq('product_id',pid).eq('status','approved').order('created_at',{ascending:false});
+  if(!data||!data.length){box.innerHTML='<div style="color:var(--muted);font-size:12.5px;padding:6px 0">还没有评论</div>';return;}
+  box.innerHTML=data.map(c=>`<div class="comment"><div class="comment-meta">${new Date(c.created_at).toLocaleString('zh-CN')}</div><div class="comment-text">${esc(c.content)}</div></div>`).join('');
+ }catch(e){box.innerHTML='<div style="color:var(--muted);font-size:12.5px;padding:6px 0">评论加载失败</div>';}
+}
+async function postComment(pid){
+ if(!currentUser){showToast('请先登录');openAuth('login');return;}
+ const el=document.getElementById('commentInput');const content=(el.value||'').trim();
+ if(!content){showToast('请输入评论');return;}
+ const {error}=await sb.from('comments').insert({user_id:currentUser.id,product_id:pid,content,status:'pending'});
+ if(error){showToast('提交失败：'+error.message);return;}
+ el.value='';showToast('评论已提交，审核通过后显示');
+}
 async function buy(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;if(!currentUser){showToast('请先登录');closeModal('modal');openAuth('login');return;}const price=Number(p.price)||0;if(price===0){downloadProductById(p.id);return;}const {data:ex}=await sb.from('orders').select('*').eq('user_id',currentUser.id).eq('product_id',p.id).in('status',['pending','submitted','paid']);if(ex&&ex.length){showPayModal(p,ex[0]);return;}const {data,error}=await sb.from('orders').insert({user_id:currentUser.id,product_id:p.id,status:'pending'}).select().single();if(error){showToast('下单失败：'+(error.message||''));return;}showPayModal(p,data);}
 function showPayModal(p,order){currentPay={p,order};closeModal('modal');const price=Number(p.price)||0;const qrW=settings.pay_qr_wechat,qrA=settings.pay_qr_alipay;let qrHtml;if(qrW||qrA){qrHtml=`<div style="display:flex;gap:10px;justify-content:center;margin:14px 0">${qrW?`<div style="text-align:center"><img src="${esc(qrW)}" style="width:130px;height:130px;object-fit:contain;border-radius:10px;background:#fff;padding:4px"><div style="font-size:11px;color:var(--muted);margin-top:5px">微信</div></div>`:''}${qrA?`<div style="text-align:center"><img src="${esc(qrA)}" style="width:130px;height:130px;object-fit:contain;border-radius:10px;background:#fff;padding:4px"><div style="font-size:11px;color:var(--muted);margin-top:5px">支付宝</div></div>`:''}</div>`;}else{qrHtml=`<div class="qr-box"><span class="big-emoji">📱</span>管理员还没上传收款码<br><span style="font-size:12px">请先联系客服</span></div>`;}let actionHtml='';if(order.status==='paid')actionHtml=`<button class="btn btn-accent btn-block" onclick="downloadProductById(${p.id})">下载文件</button>`;else if(order.status==='submitted')actionHtml=`<div style="text-align:center;color:#6f9dff;font-weight:700;font-size:14px;margin-top:14px">已提交付款，等待管理员确认…</div><button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="openMy()">刷新查看状态</button>`;else actionHtml=`<button class="btn btn-accent btn-block" onclick="submitPaid(${order.id})">我已完成付款</button>`;document.getElementById('payContent').innerHTML=`<div class="cat" style="color:var(--accent);font-size:10px;letter-spacing:3px;font-weight:800">下单付款</div><h2 style="font-size:21px;margin:8px 0 4px;font-weight:900">${esc(p.title)}</h2><div style="color:var(--muted);font-size:13px;margin-bottom:10px">订单金额：<b style="color:var(--accent);font-size:20px">¥${price}</b></div>${qrHtml}<div class="pay-info"><div class="row"><span>订单号</span><b>#${order.id}</b></div><div class="row"><span>联系方式</span><b>${esc(settings.contact||'联系客服')}</b></div></div><div style="margin-top:14px">${actionHtml}</div><div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center;line-height:1.6">付款后点「我已完成付款」，管理员确认后即可下载</div>`;openModalEl('payModal');}
 async function submitPaid(orderId){const {error}=await sb.from('orders').update({status:'submitted'}).eq('id',orderId);if(error){showToast('提交失败，请重试');return;}showToast('已提交，等待管理员确认');closeModal('payModal');if(currentPay)showPayModal(currentPay.p,{...currentPay.order,status:'submitted'});}
