@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理后台 — AEFFX</title>
+<style>
+  :root{
+    --bg:#0b0b0c; --panel:#141416; --panel2:#1b1b1e;
+    --line:rgba(255,255,255,.09); --text:#f4f4f2; --muted:#9c9ca6;
+    --accent:#c8f62e; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1100px;margin:0 auto;padding:0 16px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;font-family:inherit;font-weight:800;border-radius:99px;transition:.2s;font-size:13px;padding:9px 16px;white-space:nowrap}
+  .btn-accent{background:var(--accent);color:#000}
+  .btn-accent:hover{transform:translateY(-1px)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.sm{padding:6px 12px;font-size:12px}
+  input,select,textarea{width:100%;padding:10px 12px;border-radius:9px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:.2s}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px;font-weight:700}
+  textarea{min-height:80px;resize:vertical}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:12px 22px;border-radius:99px;font-weight:800;font-size:14px;z-index:999;transition:.4s;box-shadow:0 14px 40px rgba(200,246,46,.35);max-width:90vw;text-align:center}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  #loginView{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .login-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:32px 26px;width:100%;max-width:380px}
+  .login-card .logo{font-size:20px;font-weight:900;margin-bottom:6px;display:flex;gap:8px;align-items:center}
+  .login-card .mark{width:32px;height:32px;display:grid;place-items:center;background:var(--accent);color:#000;border-radius:9px}
+  .login-card p{color:var(--muted);font-size:12.5px;margin-bottom:20px;line-height:1.6}
+  #panelView{display:none;padding-bottom:60px}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 0}
+  .topbar .inner{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .topbar .logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px}
+  .topbar .mark{width:28px;height:28px;display:grid;place-items:center;background:var(--accent);color:#000;border-radius:8px;font-size:14px}
+  .topbar .who{font-size:12px;color:var(--muted)}
+  .tabs{display:flex;gap:6px;overflow-x:auto;padding:14px 0;border-bottom:1px solid var(--line);-webkit-overflow-scrolling:touch}
+  .tab{padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s}
+  .tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+  main{padding:20px 0}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .bar h3{font-size:18px;font-weight:900}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+  .stat-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .stat-card .num{font-size:28px;font-weight:900;margin-bottom:4px}
+  .stat-card .num.accent{color:var(--accent)}
+  .stat-card .lbl{font-size:12.5px;color:var(--muted)}
+  .plist{display:flex;flex-direction:column;gap:10px}
+  .prow{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .pcolor{width:54px;height:54px;border-radius:9px;display:grid;place-items:center;font-weight:900;font-size:13px;flex-shrink:0;color:#fff;overflow:hidden;text-align:center}
+  .pinfo{flex:1;min-width:0}
+  .ptitle{font-weight:800;font-size:14px;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pmeta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .empty{text-align:center;color:var(--muted);padding:40px 0;font-size:13px}
+  .oitem{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+  .ohead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .otitle{font-weight:800;font-size:14px}
+  .ometa{font-size:12px;color:var(--muted);line-height:1.7}
+  .oacts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .status{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:800;white-space:nowrap}
+  .st-pending{background:rgba(255,180,0,.15);color:#ffb400}
+  .st-submitted{background:rgba(80,140,255,.15);color:#6f9dff}
+  .st-paid{background:rgba(200,246,46,.15);color:var(--accent)}
+  .st-cancelled{background:rgba(255,255,255,.08);color:var(--muted)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .qr-preview{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+  .qr-preview .qr-item{text-align:center;font-size:11px;color:var(--muted)}
+  .qr-preview img{width:100px;height:100px;object-fit:contain;background:#fff;border-radius:8px;padding:4px;display:block;margin-bottom:4px}
+  .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:.3s}
+  .modal.show{opacity:1;pointer-events:auto}
+  .mback{position:absolute;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+  .mbox{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:24px}
+  .mbox h3{font-size:18px;font-weight:900;margin-bottom:8px}
+  .mclose{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;font-size:15px}
+  .mclose:hover{background:var(--accent);color:#000}
+  .hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+  @media(max-width:560px){ .grid2{grid-template-columns:1fr} .stat-grid{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<div id="loginView">
+  <div class="login-card">
+    <div class="logo"><span class="mark">✳</span> 管理后台</div>
+    <p>仅限管理员登录。请使用管理员邮箱账号登录。</p>
+    <label>邮箱</label>
+    <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="email">
+    <label>密码</label>
+    <input type="password" id="loginPass" placeholder="密码" autocomplete="current-password">
+    <button class="btn btn-accent" style="width:100%;margin-top:18px;padding:12px" onclick="doLogin()">登录后台</button>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">不是管理员？<a href="index.html" style="color:var(--accent)">返回前台</a></div>
+  </div>
+</div>
+
+<div id="panelView">
+  <div class="topbar">
+    <div class="container inner">
+      <div class="logo"><span class="mark">✳</span> 管理后台</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span class="who" id="whoEmail"></span>
+        <a href="index.html" target="_blank" class="btn btn-ghost sm">看前台 ↗</a>
+        <button class="btn btn-ghost sm" onclick="logout()">退出</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-tab="overview" onclick="switchTab('overview')">概览</button>
+      <button class="tab" data-tab="products" onclick="switchTab('products')">产品管理</button>
+      <button class="tab" data-tab="orders" onclick="switchTab('orders')">订单管理</button>
+      <button class="tab" data-tab="settings" onclick="switchTab('settings')">站点设置</button>
+    </div>
+    <main id="tabContent"></main>
+  </div>
+</div>
+
+<div class="modal" id="pModal" onclick="if(event.target===this||event.target.classList.contains('mback'))closeProductForm()">
+  <div class="mback"></div>
+  <div class="mbox">
+    <button class="mclose" onclick="closeProductForm()">✕</button>
+    <h3 id="pModalTitle">新增产品</h3>
+    <label>产品名称 *</label>
+    <input id="fTitle" placeholder="例如：C'MON 工程文件">
+    <div class="grid2">
+      <div><label>分类</label>
+        <select id="fCategory">
+          <option value="预设">预设</option>
+          <option value="工程文件">工程文件</option>
+          <option value="模板">模板</option>
+          <option value="调色LUT">调色LUT</option>
+          <option value="转场">转场</option>
+        </select>
+      </div>
+      <div><label>状态</label>
+        <select id="fStatus">
+          <option value="published">已上架</option>
+          <option value="hidden">已下架</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid2">
+      <div><label>价格（0 = 免费）</label><input id="fPrice" type="number" min="0" step="0.01" value="0"></div>
+      <div><label>原价（可选）</label><input id="fOldPrice" type="number" min="0" step="0.01" placeholder="留空不显示"></div>
+    </div>
+    <div class="grid2">
+      <div><label>封面大字（英文更酷）</label><input id="fGlyph" placeholder="例如 C'MON"></div>
+      <div><label>封面主色</label><input id="fColor" type="color" value="#1b1b1e" style="height:42px;padding:4px"></div>
+    </div>
+    <label>产品介绍</label>
+    <textarea id="fDesc" placeholder="详细介绍这个产品包含什么…"></textarea>
+    <label>预设文件（zip / rar / 工程文件等）</label>
+    <input type="file" id="fFile" style="padding:8px">
+    <div class="hint" id="fFileInfo">未上传文件。上传后，买家付款确认即可下载。单文件建议不超过 50MB。</div>
+    <button class="btn btn-accent" style="width:100%;margin-top:20px;padding:12px" onclick="saveProduct()" id="saveBtn">保存产品</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);
+const ADMIN = (window.ADMIN_EMAIL||'').toLowerCase();
+let currentUser = null;
+let products = [], orders = [], profilesMap = {}, prodMap = {}, settings = {};
+let editingId = null;
+let currentTab = 'overview';
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+let toastTimer;
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2800); }
+function openModalEl(id){ document.getElementById(id).classList.add('show'); }
+function closeModalEl(id){ document.getElementById(id).classList.remove('show'); }
+
+(async function init(){
+  const { data:{ session } } = await sb.auth.getSession();
+  currentUser = session?.user || null;
+  sb.auth.onAuthStateChange((e,s)=>{ currentUser = s?.user||null; evaluate(); });
+  evaluate();
+})();
+
+function evaluate(){
+  const isAdmin = currentUser && (currentUser.email||'').toLowerCase() === ADMIN;
+  if(isAdmin){
+    document.getElementById('loginView').style.display='none';
+    document.getElementById('panelView').style.display='block';
+    document.getElementById('whoEmail').textContent = currentUser.email;
+    if(!products.length) loadAll();
+  } else {
+    document.getElementById('loginView').style.display='flex';
+    document.getElementById('panelView').style.display='none';
+  }
+}
+
+async function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  if(!email||!pass){ toast('请输入邮箱和密码'); return; }
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if(error){ toast('登录失败：'+(error.message||'')); return; }
+  if((email||'').toLowerCase() !== ADMIN){
+    toast('该账号不是管理员');
+    await sb.auth.signOut();
+    return;
+  }
+  toast('登录成功 ✅');
+}
+async function logout(){ await sb.auth.signOut(); toast('已退出'); }
+
+async function loadAll(){
+  const [sRes,pRes,oRes,prRes] = await Promise.all([
+    sb.from('settings').select('*'),
+    sb.from('products').select('*').order('created_at',{ascending:false}),
+    sb.from('orders').select('*').order('created_at',{ascending:false}),
+    sb.from('profiles').select('*')
+  ]);
+  settings = {}; (sRes.data||[]).forEach(r=>settings[r.key]=r.value);
+  products = pRes.data||[];
+  orders = oRes.data||[];
+  profilesMap = {}; (prRes.data||[]).forEach(r=>profilesMap[r.id]=r.email);
+  prodMap = {}; products.forEach(p=>prodMap[p.id]=p);
+  renderTab();
+}
+
+function switchTab(t){
+  currentTab = t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
+  renderTab();
+}
+function renderTab(){
+  if(currentTab==='overview') renderOverview();
+  else if(currentTab==='products') renderProducts();
+  else if(currentTab==='orders') renderOrders();
+  else if(currentTab==='settings') renderSettings();
+}
+
+function renderOverview(){
+  const pending = orders.filter(o=>o.status==='submitted').length;
+  const revenue = orders.filter(o=>o.status==='paid').reduce((s,o)=>{ const p=prodMap[o.product_id]; return s+(p?Number(p.price)||0:0); },0);
+  document.getElementById('tabContent').innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">${products.length}</div><div class="lbl">产品总数</div></div>
+      <div class="stat-card"><div class="num">${orders.length}</div><div class="lbl">订单总数</div></div>
+      <div class="stat-card"><div class="num accent">${pending}</div><div class="lbl">待确认付款</div></div>
+      <div class="stat-card"><div class="num accent">¥${revenue}</div><div class="lbl">已收款（估）</div></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:8px">🚀 快速开始</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.9">
+        1. 去「站点设置」上传你的微信/支付宝收款码<br>
+        2. 去「产品管理」上传第一个产品（填信息 + 选文件）<br>
+        3. 打开前台用管理员邮箱注册一个账号 → 测试购买流程<br>
+        4. 别人下单后，来「订单管理」点「确认收款」即可开通下载
+      </div>
+    </div>`;
+}
+
+function renderProducts(){
+  const c = document.getElementById('tabContent');
+  let html = `<div class="bar"><h3>产品管理（${products.length}）</h3><button class="btn btn-accent" onclick="openProductForm()">+ 新增产品</button></div>`;
+  if(!products.length){ html += '<div class="empty">还没有产品，点右上角「新增产品」</div>'; }
+  else {
+    html += '<div class="plist">' + products.map(p=>`
+      <div class="prow">
+        <div class="pcolor" style="background:${esc(p.cover_color||'#1b1b1e')}">${esc(p.glyph||'AE')}</div>
+        <div class="pinfo">
+          <div class="ptitle">${esc(p.title)}</div>
+          <div class="pmeta">${esc(p.category||'-')} · ${Number(p.price)===0?'免费':'¥'+Number(p.price)} · ${p.status==='published'?'<span style="color:var(--accent)">已上架</span>':'<span style="color:#ffb400">已下架</span>'}</div>
+          <div class="pmeta">${p.file_path?'📎 文件已上传':'⚠️ 未上传文件'}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-direction:column">
+          <button class="btn btn-ghost sm" onclick="openProductForm(${p.id})">编辑</button>
+          <button class="btn btn-ghost sm" style="color:#ff6b6b" onclick="deleteProduct(${p.id})">删除</button>
+        </div>
+      </div>`).join('') + '</div>';
+  }
+  c.innerHTML = html;
+}
+
+function openProductForm(id){
+  editingId = id || null;
+  const p = id ? products.find(x=>x.id===id) : null;
+  document.getElementById('pModalTitle').textContent = id ? '编辑产品' : '新增产品';
+  document.getElementById('fTitle').value = p?.title || '';
+  document.getElementById('fCategory').value = p?.category || '预设';
+  document.getElementById('fStatus').value = p?.status || 'published';
+  document.getElementById('fPrice').value = p?.price ?? 0;
+  document.getElementById('fOldPrice').value = p?.old_price ?? '';
+  document.getElementById('fGlyph').value = p?.glyph || '';
+  document.getElementById('fColor').value = p?.cover_color || '#1b1b1e';
+  document.getElementById('fDesc').value = p?.description || '';
+  document.getElementById('fFile').value = '';
+  document.getElementById('fFileInfo').textContent = p?.file_path ? ('当前文件：'+p.file_path+'（重新选择可覆盖）') : '未上传文件。上传后，买家付款确认即可下载。单文件建议不超过 50MB。';
+  openModalEl('pModal');
+}
+function closeProductForm(){ closeModalEl('pModal'); editingId = null; }
+
+async function saveProduct(){
+  const title = document.getElementById('fTitle').value.trim();
+  if(!title){ toast('请填写产品名称'); return; }
+  const btn = document.getElementById('saveBtn'); const old = btn.textContent; btn.textContent='保存中…'; btn.disabled=true;
+  try{
+    const payload = {
+      title,
+      category: document.getElementById('fCategory').value,
+      price: Number(document.getElementById('fPrice').value)||0,
+      old_price: document.getElementById('fOldPrice').value ? Number(document.getElementById('fOldPrice').value) : null,
+      glyph: document.getElementById('fGlyph').value.trim() || 'AE',
+      cover_color: document.getElementById('fColor').value,
+      description: document.getElementById('fDesc').value,
+      status: document.getElementById('fStatus').value
+    };
+    let id = editingId;
+    if(id){
+      const { error } = await sb.from('products').update(payload).eq('id', id);
+      if(error) throw error;
+    } else {
+      const { data, error } = await sb.from('products').insert(payload).select().single();
+      if(error) throw error;
+      id = data.id;
+    }
+    const fi = document.getElementById('fFile');
+    if(fi.files && fi.files[0]){
+      toast('文件上传中，请稍候…');
+      const file = fi.files[0];
+      const path = id + '/' + file.name;
+      const { error: upErr } = await sb.storage.from('files').upload(path, file, { upsert:true });
+      if(upErr) throw new Error('文件上传失败：'+upErr.message);
+      const { error: updErr } = await sb.from('products').update({ file_path: path }).eq('id', id);
+      if(updErr) throw updErr;
+    }
+    toast('已保存 ✅');
+    closeProductForm();
+    await loadAll();
+  } catch(e){
+    toast(e.message||'保存失败');
+  } finally { btn.textContent=old; btn.disabled=false; }
+}
+
+async function deleteProduct(id){
+  if(!confirm('确定删除这个产品吗？删除后不可恢复。')) return;
+  const { error } = await sb.from('products').delete().eq('id', id);
+  if(error){ toast('删除失败：'+error.message); return; }
+  toast('已删除');
+  await loadAll();
+}
+
+function renderOrders(){
+  const c = document.getElementById('tabContent');
+  const stText = { pending:'待付款', submitted:'待确认', paid:'已付款', cancelled:'已取消' };
+  const stCls = { pending:'st-pending', submitted:'st-submitted', paid:'st-paid', cancelled:'st-cancelled' };
+  let html = `<div class="bar"><h3>订单管理（${orders.length}）</h3></div>`;
+  if(!orders.length){ html += '<div class="empty">还没有订单</div>'; }
+  else {
+    html += orders.map(o=>{
+      const p = prodMap[o.product_id];
+      const title = p? p.title : '（产品已删除）';
+      const price = p? Number(p.price)||0 : 0;
+      const email = profilesMap[o.user_id] || (o.user_id||'').slice(0,8)+'…';
+      let acts = '';
+      if(o.status==='submitted') acts = `<button class="btn btn-accent sm" onclick="setOrder(${o.id},'paid')">✓ 确认收款</button><button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消</button>`;
+      else if(o.status==='pending') acts = `<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')">取消订单</button>`;
+      else if(o.status==='paid') acts = `<button class="btn btn-ghost sm" onclick="setOrder(${o.id},'cancelled')" style="color:#ff6b6b">撤销</button>`;
+      return `<div class="oitem">
+        <div class="ohead"><span class="otitle">${esc(title)}</span><span class="status ${stCls[o.status]||''}">${stText[o.status]||o.status}</span></div>
+        <div class="ometa">订单 #${o.id} · ¥${price}<br>买家：${esc(email)}<br>时间：${new Date(o.created_at).toLocaleString('zh-CN')}</div>
+        ${acts?`<div class="oacts">${acts}</div>`:''}
+      </div>`;
+    }).join('');
+  }
+  c.innerHTML = html;
+}
+
+async function setOrder(id, status){
+  const { error } = await sb.from('orders').update({ status }).eq('id', id);
+  if(error){ toast('操作失败：'+error.message); return; }
+  toast(status==='paid'?'已确认收款，买家可下载 ✅':'已更新');
+  await loadAll();
+}
+
+function renderSettings(){
+  const c = document.getElementById('tabContent');
+  const qrW = settings.pay_qr_wechat || '';
+  const qrA = settings.pay_qr_alipay || '';
+  c.innerHTML = `
+    <div class="bar"><h3>站点设置</h3></div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:6px">基础信息</div>
+      <label>店铺名称</label><input id="setSiteName" value="${esc(settings.site_name||'')}">
+      <label>副标题</label><input id="setTagline" value="${esc(settings.site_tagline||'')}">
+      <label>首屏大标题（换行，最后一行自动描边）</label>
+      <textarea id="setHeroTitle">${esc(settings.hero_title||"AE预设.\n模板.\n工程文件.")}</textarea>
+      <label>首屏介绍文案</label><textarea id="setHeroDesc">${esc(settings.hero_desc||'')}</textarea>
+      <label>顶部公告（留空不显示）</label><input id="setAnnouncement" value="${esc(settings.announcement||'')}">
+      <label>联系方式 / 付款说明</label><input id="setContact" value="${esc(settings.contact||'')}">
+      <button class="btn btn-accent" style="margin-top:18px" onclick="saveSettings()">保存设置</button>
+    </div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:6px">收款码</div>
+      <div class="hint" style="margin-bottom:10px">上传后，买家下单时就能看到你的收款码。</div>
+      <label>微信收款码</label>
+      <input type="file" id="qrWFile" accept="image/*" onchange="uploadQR('wechat')" style="padding:8px">
+      <label>支付宝收款码</label>
+      <input type="file" id="qrAFile" accept="image/*" onchange="uploadQR('alipay')" style="padding:8px">
+      <div class="qr-preview">
+        ${qrW?`<div class="qr-item"><img src="${esc(qrW)}">微信</div>`:''}
+        ${qrA?`<div class="qr-item"><img src="${esc(qrA)}">支付宝</div>`:''}
+      </div>
+    </div>`;
+}
+
+async function saveSettings(){
+  const rows = [
+    { key:'site_name', value: document.getElementById('setSiteName').value },
+    { key:'site_tagline', value: document.getElementById('setTagline').value },
+    { key:'hero_title', value: document.getElementById('setHeroTitle').value },
+    { key:'hero_desc', value: document.getElementById('setHeroDesc').value },
+    { key:'announcement', value: document.getElementById('setAnnouncement').value },
+    { key:'contact', value: document.getElementById('setContact').value }
+  ];
+  const { error } = await sb.from('settings').upsert(rows);
+  if(error){ toast('保存失败：'+error.message); return; }
+  toast('设置已保存 ✅');
+  await loadAll();
+}
+
+async function uploadQR(type){
+  const input = document.getElementById(type==='wechat'?'qrWFile':'qrAFile');
+  const file = input.files && input.files[0];
+  if(!file) return;
+  toast('上传中…');
+  const ext = file.name.split('.').pop();
+  const path = 'qr_'+type+'_'+Date.now()+'.'+ext;
+  const { error } = await sb.storage.from('covers').upload(path, file, { upsert:true });
+  if(error){ toast('上传失败：'+error.message); return; }
+  const { data } = sb.storage.from('covers').getPublicUrl(path);
+  const key = type==='wechat' ? 'pay_qr_wechat' : 'pay_qr_alipay';
+  const { error: e2 } = await sb.from('settings').upsert([{ key, value: data.publicUrl }]);
+  if(e2){ toast('保存失败：'+e2.message); return; }
+  settings[key] = data.publicUrl;
+  toast('收款码已更新 ✅');
+  renderSettings();
+}
+</script>
+</body>
+</html>
